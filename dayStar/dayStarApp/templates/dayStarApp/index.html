@@ -5,32 +5,32 @@
     <div class="container">
       <div class="row">
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
+          <h2 class="text-center mt-3">{{ count_babys }}</h2>
           <p>
             <span><i class="bi bi-person total-icon"></i></span
             ><strong>Toddlers</strong>
           </p>
-          <h2 class="text-center mt-3">300</h2>
         </div>
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
+          <h2 class="text-center heading text-bold">{{ count_sitters }}</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
             ><strong>Sitters</strong>
           </p>
-          <h2 class="text-center text-bold">80</h2>
         </div>
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
+          <h2 class="text-center">100</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
             ><strong>Employees</strong>
           </p>
-          <h2 class="text-center">130</h2>
         </div>
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
+          <h2 class="text-center">UGX. 500000</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
             ><strong>Inventories</strong>
           </p>
-          <h2 class="text-center">UGX. 500000</h2>
         </div>
       </div>
     </div>
@@ -63,24 +63,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {% for sitter in allSitters %}
-              <td>{{ sitter.name }}</td>
-              <td>{{ sitter.NIN }}</td>
-              <td>{{ sitter.location }}</td>
-              <td>{{ sitter.contact }}</td>
-              <td>{{ sitter.education }}</td>
-            {% endfor %}
-            <td><span><i class="bi bi-eye-slash"></i></span></td>
-          </tr>
-          <tr>
-            <td>Theodore Duran</td>
-            <td>CM78DH4F453SU5</td>
-            <td>Dhanbad</td>
-            <td>1999/04/07</td>
-            <td>97%</td>
-            <td><span><i class="bi bi-eye-slash"></i></span></td>
-          </tr>
+          {% for each in all_sitters %}
+            <tr>
+                <td>{{ each.name }}</td>
+                <td>{{ each.NIN }}</td>
+                <td>{{ each.location }}</td>
+                <td>{{ each.contact }}</td>
+                <td>{{ each.education }}</td>
+                <td><span><i class="bi bi-eye-slash"></i></span></td>
+            </tr>
+          {% endfor %}
+          
           <tr class="text-danger">
             <td >none</td>
             <td>notprovided</td>
@@ -89,6 +82,23 @@
             <td>am wasting time here</td>
             <td><span><i class="bi bi-eye-slash"></i></span></td>
           </tr>
+          <tr>
+           <td>Theodore Duran</td>
+           <td>CM78DH4F453SU5</td>
+           <td>Dhanbad</td>
+           <td>1999/04/07</td>
+           <td>97%</td>
+           <td><span><i class="bi bi-eye-slash"></i></span></td>
+         </tr>
+          <tr>
+           <td>Theodore Duran</td>
+           <td>CM78DH4F453SU5</td>
+           <td>Dhanbad</td>
+           <td>1999/04/07</td>
+           <td>97%</td>
+           <td><span><i class="bi bi-eye-slash"></i></span></td>
+         </tr>
+          <!--
           <tr>
             <td>Harding Thompson</td>
             <td>CM78DH4F453SU5</td>
@@ -128,7 +138,7 @@
             <td>2004/02/01</td>
             <td>34%</td>
             <td><span><i class="bi bi-eye-slash"></i></span></td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
