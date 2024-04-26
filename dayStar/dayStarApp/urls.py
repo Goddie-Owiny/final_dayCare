@@ -6,4 +6,5 @@ from dayStarApp import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('sitter/', views.sitter, name='sitter'),
+    path('baby/', views.baby, name='baby'),
 ]

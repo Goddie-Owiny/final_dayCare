@@ -13,3 +13,13 @@ def sitter(request):
         'allSitters': allSitters,
     }
     return render(request, 'dayStarApp/sitter.html', {'addSitterForm': addSitterForm})
+
+
+def baby(request):
+    addBabyForm = Baby_regForm()
+    allBabys = Sitter.objects.all()
+    context = {
+        'allBabys': allBabys,
+    }
+    return render(request, 'dayStarApp/sitter.html', {'addSitterForm': addBabyForm}) 
+   
