@@ -20,13 +20,22 @@ def index(request):
    
 
 def sitter(request):
-    addSitterForm = Sitter_regForm()
+    addSitterForm = Sitter_regForm(request.POST)
+    message = None
+    if request.method == 'POST':
+        if addSitterForm.is_valid():
+            newSitter = addSitterForm.save(commit = False)
+            newSitter.save()
+    
+    message = "Sitter Added Successfully!"
+    
+    
 
-    return render(request, 'dayStarApp/sitter.html', {'addSitterForm': addSitterForm})
+    return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
 
 def baby(request):
     addBabyForm = Baby_regForm()
    
-    return render(request, 'dayStarApp/sitter.html', {'addSitterForm': addBabyForm}) 
+    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm}) 
     

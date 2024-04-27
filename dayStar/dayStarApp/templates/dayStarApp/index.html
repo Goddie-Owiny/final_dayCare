@@ -1,11 +1,12 @@
-{% extends 'dayStarApp/base.html' %}{% block content %} {% load static %}
+{% extends 'dayStarApp/base.html' %} {% load static %}
 
 
+{% block content %}
   <main class="main" id="main">
     <div class="container">
       <div class="row">
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
-          <h2 class="text-center mt-3">{{ count_babys }}</h2>
+          <h2 class="text-center">{{ count_babys }}</h2>
           <p>
             <span><i class="bi bi-person total-icon"></i></span
             ><strong>Toddlers</strong>

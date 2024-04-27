@@ -15,6 +15,11 @@ class Sitter(models.Model):
     sitter_number = models.CharField(max_length=10, unique=True, blank=False, default=None)
     NIN = models.CharField(max_length=14, blank=False, null=True)
 
+class Period(models.Model):
+    period = models.CharField(max_length=100, null=True, blank=False)
+    def __str__(self):
+        return self.period
+    
     
     # babys Model
 class Baby(models.Model):
@@ -22,6 +27,7 @@ class Baby(models.Model):
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, blank=False, null=True, default=0)
     baby_Number = models.IntegerField()
     baby_Bringer = models.CharField(max_length=100)
     parent_Name = models.CharField(max_length=100)
