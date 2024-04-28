@@ -1,6 +1,6 @@
 from django.urls import path
 from dayStarApp import views
-
+from django.contrib.auth import views as auth_views
 
 # app urls 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('home/', views.index, name='index'),
     path('sitter/', views.sitter, name='sitter'),
     path('baby/', views.baby, name='baby'),
+    path("login/", auth_views.LoginView.as_view(template_name='dayStarApp/login.html')), 
 ]

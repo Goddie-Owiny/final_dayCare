@@ -49,6 +49,13 @@
   transform: translate(-50%, -50%);
 }
 
+#centered .login{
+  padding: 1.5rem 5rem;
+  border-radius: 50px;
+  background-color: #1e7875;
+  color: white;
+}
+
 .carousel-item img {
   height: 100vh;
   object-fit: cover;
@@ -218,7 +225,22 @@ h6 {
   scrollbar-width: none;
 }
 
-.form h2 {
+#admin-login {
+  display: grid;
+  margin: auto;
+  max-width: 700px;
+}
+
+#admin-login .admin-form{
+  border-radius: 15px;
+}
+
+#admin-login .form-group{
+  margin-top: 3rem;
+  padding: 0.5rem 2rem;
+}
+
+.form h2, #admin-login h2{
   color: #a74527;
   font-weight: bolder;
 }

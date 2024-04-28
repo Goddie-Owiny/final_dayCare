@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import *
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def index(request):
     all_sitters = Sitter.objects.all()
     all_babys = Baby.objects.all()
@@ -21,7 +23,7 @@ def index(request):
 def landing(request):
     return render(request, 'dayStarApp/landing.html')
    
-
+@login_required
 def sitter(request):
     addSitterForm = Sitter_regForm(request.POST)
     message = None
@@ -32,11 +34,9 @@ def sitter(request):
     
     message = "Sitter Added Successfully!"
     
-    
-
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
-
+@login_required
 def baby(request):
     addBabyForm = Baby_regForm()
    
