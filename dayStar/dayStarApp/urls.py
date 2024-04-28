@@ -4,7 +4,8 @@ from dayStarApp import views
 
 # app urls 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.landing, name='landing'),
+    path('home/', views.index, name='index'),
     path('sitter/', views.sitter, name='sitter'),
     path('baby/', views.baby, name='baby'),
 ]

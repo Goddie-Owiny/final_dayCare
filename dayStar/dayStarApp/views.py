@@ -17,6 +17,9 @@ def index(request):
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
+
+def landing(request):
+    return render(request, 'dayStarApp/landing.html')
    
 
 def sitter(request):

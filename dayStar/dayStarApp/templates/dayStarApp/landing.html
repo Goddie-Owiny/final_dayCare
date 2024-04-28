@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="Description" content="Enter your description here" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" />
+    <title>DayStar | Landing Page</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- <nav
+        class="navbar fixed-top navbar-expand-lg flex-row navbar-light bg-light"
+      >
+        <div class="navbar-brand pr-1.5">
+          <img
+            class="logo img-fluid rounded-circle"
+            src="{% static 'images/Logo.png' %}"
+            alt="Logo"
+          />
+        </div>
+        <a class="navbar-brand dayStar-logo" href="#">DayStar Day Care</a>
+      </nav> -->
+
+      <div id="centered-text">
+        <h1>DayStar Administrator</h1>
+        <h6>Where Kids Eat, Learn And Grow Healthly</h6>
+      </div>
+
+      <div
+        id="carouselExampleAutoplaying"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="{% static 'images/carousel_1.jpg' %}"
+              class="d-block w-100 vh=100"
+              alt="image"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'images/carousel_2.jpg' %}"
+              class="d-block vw-100"
+              alt="image"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'images/carousel_3.jpg' %}"
+              class="d-block vw-100"
+              alt="image"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'images/carousel_4.jpg' %}"
+              class="d-block vw-100"
+              alt="image"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'images/carousel_5.jpg' %}"
+              class="d-block vw-100"
+              alt="image"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div id="centered">
+        <a href="login/"><button class="btn btn-light login">Login</button></a>
+        <a href="#"
+          ><button class="btn btn-danger signUp">Sign up</button></a
+        >
+      </div>
+
+      <div class="container bg-white mt-3">
+        <div class="row">
+          <div class="col-3">
+            <img
+              class="img img-fluid rounded-circle pb-3"
+              src="{% static 'images/Logo.png' %}"
+              alt=""
+              max-width="100"
+              width="100"
+            />
+          </div>
+          <div class="col-3">
+            <img
+              class="img img-fluid"
+              src="{% static 'images/Refactory_Logo.png' %}"
+              alt="Refactory"
+              max-width="100"
+            />
+          </div>
+          <div class="col-3">
+            <img
+              class="img img-fluid"
+              src="{% static 'images/ciu-logo.png' %}"
+              alt=""
+              max-width="100"
+            />
+          </div>
+          <div class="col-3">
+            <img
+              class="img img-fluid"
+              src="{% static 'images/apple.svg' %}"
+              alt=""
+              max-width="100"
+              width="100"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
