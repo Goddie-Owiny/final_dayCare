@@ -9,6 +9,6 @@ urlpatterns = [
     path('sitter/', views.sitter, name='sitter'),
     path('baby/', views.baby, name='baby'),
     path('supply/', views.supply, name='supply'),
-
     path("login/", auth_views.LoginView.as_view(template_name='dayStarApp/login.html')), 
+    path('logout/', views.logout_view, name='logout'),
 ]

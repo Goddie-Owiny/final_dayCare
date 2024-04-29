@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import *
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # Create your views here.
 @login_required
@@ -56,5 +57,14 @@ def supply(request):
         newSalesItem.save()
     
     
+    
+
+    
     return render(request, 'dayStarApp/supply.html', {'addSalesForm': addSalesForm, 'message': message})
     
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/') # redirect user to the index page
