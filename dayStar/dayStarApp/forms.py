@@ -13,3 +13,9 @@ class Baby_regForm(ModelForm):
     class Meta:
         model = Baby
         fields = '__all__'
+
+
+class Sales_regForm(ModelForm):
+    class Meta:
+        model = Sale
+        fields = '__all__'

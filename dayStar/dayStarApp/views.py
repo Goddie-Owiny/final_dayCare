@@ -32,7 +32,7 @@ def sitter(request):
             newSitter = addSitterForm.save(commit = False)
             newSitter.save()
     
-    message = "Sitter Added Successfully!"
+        message = "Sitter Added Successfully!"
     
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
@@ -41,4 +41,20 @@ def baby(request):
     addBabyForm = Baby_regForm()
    
     return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm}) 
+
+@login_required
+def supply(request):
+    addSalesForm = Sales_regForm(request.POST)
+
+    message = ""
+    if request.method == 'POST':
+        if addSalesForm.is_valid():
+            message = "Sold item Added Successfully!"
+        else:
+            message = "Add a correct Item"
+        newSalesItem = addSalesForm.save(commit = False)
+        newSalesItem.save()
+    
+    
+    return render(request, 'dayStarApp/supply.html', {'addSalesForm': addSalesForm, 'message': message})
     

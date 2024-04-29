@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(Period)
 admin.site.register(Baby)
 admin.site.register(Sitter)
+admin.site.register(Sale)
 

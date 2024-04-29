@@ -31,3 +31,9 @@ class Baby(models.Model):
     baby_Number = models.IntegerField()
     baby_Bringer = models.CharField(max_length=100)
     parent_Name = models.CharField(max_length=100)
+
+class Sale(models.Model):
+    item = models.CharField(max_length=255, null=True, blank=False)
+    unit_price = models.IntegerField(null=True, blank=False)
+    quantity_sold = models.IntegerField(null=True, default=0, blank=False)
+    amount = models.IntegerField(null=True, blank=True, default=0)
