@@ -53,7 +53,6 @@ def viewSitter(request, id):
 @login_required
 def baby(request):
     addBabyForm = Baby_regForm()
-   
     return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm}) 
 
 # supply views
