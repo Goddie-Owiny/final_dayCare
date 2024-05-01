@@ -12,18 +12,21 @@ def index(request):
     all_babys = Baby.objects.all()
     count_sitters = Sitter.objects.count()
     count_babys = Baby.objects.count()
+    all_sale = Sale.objects.all()
     context = {
         'count_sitters': count_sitters,
         'count_babys': count_babys,
         'all_sitters': all_sitters,
         'all_babys': all_babys,
+        'all_sale': all_sale,
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
 
 def landing(request):
     return render(request, 'dayStarApp/landing.html')
-   
+
+# sitter views   
 @login_required
 def sitter(request):
     addSitterForm = Sitter_regForm(request.POST)
@@ -38,11 +41,22 @@ def sitter(request):
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
 @login_required
+def viewSitter(request, id):
+    all_sitter = Sitter.objects.get(id=id)
+    context = {
+       'all_sitter': all_sitter
+    }
+    template = loader.get_template('dayStarApp/view_sitter.html')
+    return HttpResponse(template.render(context))
+
+# Baby views
+@login_required
 def baby(request):
     addBabyForm = Baby_regForm()
    
     return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm}) 
 
+# supply views
 @login_required
 def supply(request):
     addSalesForm = Sales_regForm(request.POST)
@@ -51,18 +65,16 @@ def supply(request):
     if request.method == 'POST':
         if addSalesForm.is_valid():
             message = "Sold item Added Successfully!"
+            newSalesItem = addSalesForm.save(commit = False)
+            newSalesItem.save()
         else:
             message = "Add a correct Item"
-        newSalesItem = addSalesForm.save(commit = False)
-        newSalesItem.save()
-    
-    
-    
-
-    
     return render(request, 'dayStarApp/supply.html', {'addSalesForm': addSalesForm, 'message': message})
     
 
+def deleteSitter(request, id):
+    Sitter.objects.filter(id=id).delete()
+    return redirect('/home')
 
 
 def logout_view(request):

@@ -97,6 +97,11 @@ h6 {
   transition: all 0.3s;
 }
 
+/* #main #admin-login .sitter-details{
+  border: 1px solid red;
+} */
+
+
 @media (max-width: 1199px) {
   #main {
     padding: 20px;
@@ -229,6 +234,15 @@ h6 {
   display: grid;
   margin: auto;
   max-width: 700px;
+}
+
+#sitter-details{
+  display: grid;
+  margin: auto;
+  max-width: 700px;
+  border: 1px solid #a74527;
+  padding: 2px;
+  border-radius: 2rem;
 }
 
 #admin-login .admin-form{

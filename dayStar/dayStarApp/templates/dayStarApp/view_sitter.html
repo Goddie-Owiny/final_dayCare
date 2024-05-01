@@ -1,0 +1,40 @@
+{% extends 'dayStarApp/base.html' %} {% load static %} {% block content %}
+
+<main class="main" id="main">
+  <div class="container" id="sitter-details">
+    <h1 class="text-center text-warning" id="detail">{{ all_sitter.name }}'s Details</h1>
+    <div class="flex gap-2 p-4">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="d-grid m-auto bg-danger rounded-circle" height="50" width="50">
+            <img class="w-50 rounded-circle p-3" src="{% static 'images/apple.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h6 class="text-success">Personal details</h6>
+          <h5 class="p-1">Name:<span class="p-2 text-info">{{ all_sitter.name }}</span></h5>
+          <h5 class="p-1">Sitter Number:<span class="p-2 text-info">{{ all_sitter.sitter_number }}</span></h5>
+          <h5 class="p-1">Age:<span class="p-2 text-info">{{ all_sitter.age }}</span></h5>
+          <h5 class="p-1">Gender:<span class="p-2 text-info">{{ all_sitter.gender }}</span></h5>
+          <h5 class="p-1">Education Level:<span class="p-2 text-info">{{ all_sitter.education }}</span></h5>
+          <h5 class="p-1">Phone:<span class="p-2 text-info">{{ all_sitter.contact }}</span></h5></h5>
+          <h5 class="p-1">Address:<span class="p-2 text-info">{{ all_sitter.location }}</span></h5>
+          <h5 class="p-1">NIN:<span class="p-2 text-info">{{ all_sitter.NIN }}</span></h5></h5>
+          <h5 class="p-1">Next of Kin:<span class="p-2 text-info">{{ all_sitter.next_of_kin }}</span></h5>
+          <h5 class="p-1">Religion:<span class="p-2 text-info">{{ all_sitter.religion }}</span></h5>
+        </div> <br> <br>
+      </div>
+      
+      <a class="btn btn-danger text-white rounded" href="/delete/{{ all_sitter.id }}"><span><i class="bi bi-trash"></i></span>
+        Remove {{ all_sitter.name }}
+      </a>
+      <a class="btn btn-info text-white rounded" href="/edit/{{ all_sitter.id }}"><span><i class="bi bi-pencil-square"></i></span>
+        Edit {{ all_sitter.name }}
+      </a>
+      
+      
+    </div>
+  </div>
+</main>
+
+{% endblock %}

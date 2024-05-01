@@ -44,21 +44,21 @@
                 {% csrf_token %}
                 {{ addSalesForm|crispy }}
                 <button class="btn btn-primary">Add</button>
+                <div class="modal-footer">
+                  <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                  >
+                  Cancel
+                </button>
               </form>
             </div>
-            <div class="modal-footer">
-              <button
-              type="button"
-              class="btn btn-danger"
-              data-bs-dismiss="modal"
-              >
-              Cancel
-            </button>
           </div>
         </div>
       </div>
       </div>
-      </div>
+    </div>
     <!-- add item modal end -->
 
     <!-- item table -->
@@ -75,14 +75,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Apple</td>
-            <td>15</td>
-            <td>2500</td>
-            <td>UGX. 37500</td>
-          </tr>
-          <tr>
+          {% for item in all_sale %}
+            <tr>
+              <th scope="row">{{ item.id }}</th>
+              <td>{{ item.item }}</td>
+              <td>{{ item.quantity_sold }}</td>
+              <td>{{ item.unit_price }}</td>
+              <td>UGX. {{ item.amount }}</td>
+            </tr>
+          {% endfor %}
+          <!-- <tr>
             <th scope="row">2</th>
             <td>Chocolate Biscuits</td>
             <td>9</td>
@@ -137,11 +139,11 @@
             <td>23</td>
             <td>2000</td>
             <td>UGX. 46000</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
   </div>
 </main>
 
-{% endblock %}
+{% endblock content %}

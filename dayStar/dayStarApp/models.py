@@ -34,6 +34,11 @@ class Baby(models.Model):
 
 class Sale(models.Model):
     item = models.CharField(max_length=255, null=True, blank=False)
-    unit_price = models.IntegerField(null=True, blank=False)
-    quantity_sold = models.IntegerField(null=True, default=0, blank=False)
-    amount = models.IntegerField(null=True, blank=True, default=0)
+    unit_price = models.IntegerField(null=False, blank=False)
+    quantity_sold = models.IntegerField(null=False, default=0, blank=False)
+ 
+    def amount(self):
+        return self.unit_price * self.quantity_sold
+    print (amount)
+    
+    amount = models.IntegerField(null=True, blank=False, default=0)
