@@ -22,15 +22,16 @@
           <h5 class="p-1">NIN:<span class="p-2 text-info">{{ all_sitter.NIN }}</span></h5></h5>
           <h5 class="p-1">Next of Kin:<span class="p-2 text-info">{{ all_sitter.next_of_kin }}</span></h5>
           <h5 class="p-1">Religion:<span class="p-2 text-info">{{ all_sitter.religion }}</span></h5>
-        </div> <br> <br>
+        </div> <br>
       </div>
       
       <a class="btn btn-danger text-white rounded" href="/delete/{{ all_sitter.id }}"><span><i class="bi bi-trash"></i></span>
         Remove {{ all_sitter.name }}
       </a>
-      <a class="btn btn-info text-white rounded" href="/edit/{{ all_sitter.id }}"><span><i class="bi bi-pencil-square"></i></span>
+      <a class="btn btn-info text-white rounded" href="/editsitters/{{ all_sitter.id }}"><span><i class="bi bi-pencil-square"></i></span>
         Edit {{ all_sitter.name }}
-      </a>
+      </a> 
+      <a href="{% url 'edit_sitter' all_sitter.id %}"><button>Edit</button></a>
     </div>
   </div>
 </main>

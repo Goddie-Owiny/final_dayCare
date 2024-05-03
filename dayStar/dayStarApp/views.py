@@ -4,6 +4,9 @@ from .forms import *
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.urls import reverse
+from datetime import datetime
+
 
 # Create your views here.
 @login_required
@@ -35,13 +38,14 @@ def sitter(request):
         if addSitterForm.is_valid():
             newSitter = addSitterForm.save(commit = False)
             newSitter.save()
-    
-        message = "Sitter Added Successfully!"
+            message = "Sitter Added Successfully!"
+
+        return redirect(request,'dayStarApp/landing.html')
     
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
 @login_required
-def viewSitter(request, id):
+def viewSitter(request, id): # sttier viewing page
     all_sitter = Sitter.objects.get(id=id)
     context = {
        'all_sitter': all_sitter
@@ -49,11 +53,42 @@ def viewSitter(request, id):
     template = loader.get_template('dayStarApp/view_sitter.html')
     return HttpResponse(template.render(context))
 
+def edit_page(request, item_id):
+    item = Sitter.objects.get(pk=item_id)
+    if request.method == 'POST':
+        form = Sitter_regForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('success_page')  # Redirect to a success page
+    else:
+        form = Sitter_regForm(instance=item)
+    return render(request, 'dayStarApp/edit_sitter.html', {'form': form})
+
 # Baby views
 @login_required
-def baby(request):
+def babyRegistration(request):
     addBabyForm = Baby_regForm()
-    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm}) 
+    message = None
+    if request.method == 'POST':
+        addBabyForm = Baby_regForm(request.POST)
+        if addBabyForm.is_valid():
+            newSitter = addBabyForm.save()
+            message = "Baby Registered Successfully!"
+            # Redirect to the 'babies' page after successful registration
+            return redirect('babys')
+    else:
+        addBabyForm = Baby_regForm()
+
+    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm, 'message': message})
+
+@login_required
+def babys(request):
+    all_babys = Baby.objects.all()
+    context = {
+        'all_babys': all_babys,
+    }
+    template = loader.get_template('dayStarApp/babies.html')
+    return HttpResponse(template.render(context))
 
 # supply views
 @login_required
@@ -68,8 +103,7 @@ def supply(request):
             newSalesItem.save()
         else:
             message = "Add a correct Item"
-    return render(request, 'dayStarApp/supply.html', {'addSalesForm': addSalesForm, 'message': message})
-    
+    return render(request, 'dayStarApp/supply.html', {'addSalesForm': addSalesForm, 'message': message, })
 
 def deleteSitter(request, id):
     Sitter.objects.filter(id=id).delete()

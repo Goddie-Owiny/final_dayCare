@@ -1,20 +1,21 @@
-{% load static %}
-{% block content %}
+{% load crispy_forms_tags %} {% block content %}
+{% crispy form %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<main class="main" id="main">
+  <div class="container">
+    <h2 class="mt-3 text-center">Edit Sitter details Here.</h2>
+    {% if sitter %}
+    <form
+      action=""
+      method="POST"
+      class="bg-light p-3 mt-5 rounded-30 shadow-lg form"
+    >
+    {% csrf_token %} 
+    {{ form|crispy }}
+    <button  class="btn btn-success">Submit</button>
+    </form>
+    {% endif %}
+  </div>
+</main>
 
 {% endblock %}

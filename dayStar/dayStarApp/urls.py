@@ -10,13 +10,17 @@ urlpatterns = [
     # sitter urls
     path('sitter/', views.sitter, name='sitter'),
     path('details/<int:id>', views.viewSitter, name="details"),
+     path('edit/<int:item_id>/', views.edit_page, name='edit_sitter'),
     path('delete/<int:id>/', views.deleteSitter, name="delete"),
 
     # baby urls
-    path('baby/', views.baby, name='baby'),
+    path('babyreg/', views.babyRegistration, name='baby'),
+    path('babies/', views.babys, name='babys'),
 
     # supply urls
     path('supply/', views.supply, name='supply'),
+    path('supply/sale/<int:id>', views.supply, name='supply'),
+    
 
     # admin logs urls
     path("login/", auth_views.LoginView.as_view(template_name='dayStarApp/login.html')), 
