@@ -2,6 +2,20 @@
   scroll-behavior: smooth;
 }
 
+
+#submit-button{
+  color: white;
+  background: #1e7875;
+  border: none;
+  padding: 0.5rem 2rem;
+}
+
+#submit-button:hover{ 
+  background: #278f8b;
+  color: white;
+  box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
+}
+
 /* Landing page styles */
 .dayStar-logo,
 .navbar .dayStar-logo {
@@ -59,6 +73,7 @@
 .carousel-item img {
   height: 100vh;
   object-fit: cover;
+  opacity: 1;
 }
 
 /* Landing page styles */
@@ -96,10 +111,6 @@ h6 {
   padding: 20px 30px;
   transition: all 0.3s;
 }
-
-/* #main #admin-login .sitter-details{
-  border: 1px solid red;
-} */
 
 
 @media (max-width: 1199px) {
@@ -233,7 +244,7 @@ h6 {
 #admin-login {
   display: grid;
   margin: auto;
-  max-width: 700px;
+  max-width: 500px;
 }
 
 #sitter-details{
@@ -247,10 +258,11 @@ h6 {
 
 #admin-login .admin-form{
   border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(1, 41, 112, 0.15);
 }
 
 #admin-login .form-group{
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding: 0.5rem 2rem;
 }
 

@@ -1,11 +1,16 @@
 from .models import *
 from django.forms import ModelForm
+from django import forms
 
 
 # user forms
 class Sitter_regForm(ModelForm):
     class Meta:
         model = Sitter
+        fields = ['gender']
+        widgets = {                         # widgets for user form choices
+            'gender': forms.Select(choices = Baby.GENDER_CHOICES),
+        }
         fields = '__all__'
 
 

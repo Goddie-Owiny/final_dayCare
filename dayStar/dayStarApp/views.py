@@ -15,13 +15,13 @@ def index(request):
     all_babys = Baby.objects.all()
     count_sitters = Sitter.objects.count()
     count_babys = Baby.objects.count()
-    all_sale = Sale.objects.all()
+    # all_sale = Sale.objects.all()
     context = {
         'count_sitters': count_sitters,
         'count_babys': count_babys,
         'all_sitters': all_sitters,
         'all_babys': all_babys,
-        'all_sale': all_sale,
+        # 'all_sale': all_sale,
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
@@ -31,7 +31,7 @@ def landing(request):
 
 # sitter views   
 @login_required
-def sitter(request):
+def sitterReg(request):
     addSitterForm = Sitter_regForm(request.POST)
     message = None
     if request.method == 'POST':
@@ -39,10 +39,16 @@ def sitter(request):
             newSitter = addSitterForm.save(commit = False)
             newSitter.save()
             message = "Sitter Added Successfully!"
-
-        return redirect(request,'dayStarApp/landing.html')
-    
+        return redirect('home')
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
+
+def sitters(request): 
+    all_sitters = Sitter.objects.all()
+    context = {
+        'all_sitters': all_sitters
+    }
+    template = loader.get_template('dayStarApp/sitters.html')
+    return HttpResponse(template.render(context))
 
 @login_required
 def viewSitter(request, id): # sttier viewing page

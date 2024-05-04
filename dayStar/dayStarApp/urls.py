@@ -8,7 +8,8 @@ urlpatterns = [
     path('home/', views.index, name='home'),
 
     # sitter urls
-    path('sitter/', views.sitter, name='sitter'),
+    path('sitter-reg/', views.sitterReg, name='sitter-reg'),
+    path('sitters/', views.sitters, name='sitters'),
     path('details/<int:id>', views.viewSitter, name="details"),
      path('edit/<int:item_id>/', views.edit_page, name='edit_sitter'),
     path('delete/<int:id>/', views.deleteSitter, name="delete"),
@@ -17,7 +18,7 @@ urlpatterns = [
     path('babyreg/', views.babyRegistration, name='baby'),
     path('babies/', views.babys, name='babys'),
 
-    # supply urls
+    #supply urls
     path('supply/', views.supply, name='supply'),
     path('supply/sale/<int:id>', views.supply, name='supply'),
     

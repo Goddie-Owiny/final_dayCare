@@ -23,9 +23,14 @@ class Period(models.Model):
     
     # babys Model
 class Baby(models.Model):
+    GENDER_CHOICES = [
+    ("Male", "Male"),
+    ("Female", "Female"),
+    ]
+
     name = models.CharField(max_length=100)
     age = models.IntegerField(default=0)
-    gender = models.CharField(max_length=100)
+    gender = models.CharField(max_length=100, choices=GENDER_CHOICES, default="Male")
     location = models.CharField(max_length=100)
     period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, blank=False, null=True, default=0)
     baby_Number = models.IntegerField()
@@ -33,9 +38,9 @@ class Baby(models.Model):
     parent_Name = models.CharField(max_length=100)
 
 class Sale(models.Model):
-    item = models.CharField(max_length=255, null=True, blank=False)
-    unit_price = models.IntegerField(null=False, blank=False)
-    quantity_sold = models.IntegerField(null=False, default=0, blank=False)
-   
-    def amount(self):
-        return self.unit_price * self.quantity_sold
+    item = models.CharField(max_length=100, default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    quantity = models.IntegerField(default=1, null=False)
+
+    def total_price(self):
+        return self.price * self.quantity
