@@ -39,7 +39,10 @@ def sitterReg(request):
             newSitter = addSitterForm.save(commit = False)
             newSitter.save()
             message = "Sitter Added Successfully!"
-        return redirect('home')
+        else:
+            message = "Sitter Registration Failed"
+            return redirect('sitter-reg')
+        return redirect('sitters')
     return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
 
 def sitters(request): 

@@ -28,10 +28,9 @@
       <a class="btn btn-danger text-white rounded" href="/delete/{{ all_sitter.id }}"><span><i class="bi bi-trash"></i></span>
         Remove {{ all_sitter.name }}
       </a>
-      <a class="btn btn-info text-white rounded" href="/editsitters/{{ all_sitter.id }}"><span><i class="bi bi-pencil-square"></i></span>
+      <a class="btn btn-info text-white rounded" href="{% url 'edit_sitter' all_sitter.id %}"><span><i class="bi bi-pencil-square"></i></span>
         Edit {{ all_sitter.name }}
       </a> 
-      <a href="{% url 'edit_sitter' all_sitter.id %}"><button>Edit</button></a>
     </div>
   </div>
 </main>
