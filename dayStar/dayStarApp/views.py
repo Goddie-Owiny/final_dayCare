@@ -9,6 +9,10 @@ from datetime import datetime
 
 
 # Create your views here.
+def landing(request):
+    return render(request, 'dayStarApp/landing.html')
+
+
 @login_required
 def index(request):
     all_sitters = Sitter.objects.all()
@@ -25,9 +29,6 @@ def index(request):
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
-
-def landing(request):
-    return render(request, 'dayStarApp/landing.html')
 
 # sitter views   
 @login_required

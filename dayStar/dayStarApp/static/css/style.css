@@ -8,6 +8,8 @@
   background: #1e7875;
   border: none;
   padding: 0.5rem 2rem;
+  display: grid;
+  margin: auto;
 }
 
 #submit-button:hover{ 
@@ -262,7 +264,7 @@ h6 {
 }
 
 #admin-login .form-group{
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 0.5rem 2rem;
 }
 

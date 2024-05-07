@@ -11,7 +11,7 @@ urlpatterns = [
     path('sitter-reg/', views.sitterReg, name='sitter-reg'),
     path('sitters/', views.sitters, name='sitters'),
     path('details/<int:id>', views.viewSitter, name="details"),
-     path('edit/<int:item_id>/', views.edit_page, name='edit_sitter'),
+    path('edit/<int:item_id>/', views.edit_page, name='edit_sitter'),
     path('delete/<int:id>/', views.deleteSitter, name="delete"),
 
     # baby urls
