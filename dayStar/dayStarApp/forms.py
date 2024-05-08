@@ -11,6 +11,7 @@ class Sitter_regForm(forms.Form):
     religion = forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class': 'form-control'}), required=False)
     next_of_kin = forms.CharField(max_length=200, widget= forms.TextInput(attrs={'class': 'form-control'}), required=False)
     recommended_by = forms.CharField(max_length=100, widget= forms.TextInput(attrs={'class': 'form-control'}), required=False)
+    # date_of_registration = forms.DateTimeField(required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control'}))
     sitter_number = forms.CharField(max_length=10, widget= forms.TextInput(attrs={'class': 'form-control'}), required=False)
     NIN = forms.CharField(max_length=14, widget= forms.TextInput(attrs={'class': 'form-control'}), required=False)
 
@@ -25,6 +26,7 @@ class Sitter_regForm(forms.Form):
         religion = cleaned_data.get('religion')
         next_of_kin = cleaned_data.get('next_of_kin')
         recommended_by = cleaned_data.get('recommended_by')
+        # date_of_registration = cleaned_data.get('date_of_registration')
         sitter_number = cleaned_data.get('sitter_number')
         NIN = cleaned_data.get('NIN')
 
@@ -73,22 +75,18 @@ class Baby_regForm(forms.Form):
         ('Female', 'Female'),
     ]
         
-        PERIOD_CHOICES = [
-        ('Full Day', 'Full Day'),
-        ('Half Day', 'Half Day'),
-       ]
-
+        # PERIOD_CHOICES = Period.period
 
     
         name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
         age = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class': 'form-control'}))
         gender = forms.ChoiceField(required=False, choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
         location = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-        # period_of_stay = forms.ChoiceField(choices=PERIOD_CHOICES, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
+        #period_of_stay = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'form-control'}))
         baby_Number = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
         brought_by = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-        parent_Name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-        time_out = forms.DateTimeField(required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control'}))
+        parent_Name = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))        
+        # time_out = forms.DateTimeField(required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control'}))
         status = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
         def clean(self):
@@ -104,8 +102,11 @@ class Baby_regForm(forms.Form):
             time_out = cleaned_data.get('time_out')
             status = cleaned_data.get('status')
 
+
         # if not name or not age or not gender or not location or not period_of_stay or not baby_Number or not brought_by or not parent_Name or not time_out:
         #     self.add_error('name', 'Fields required')
+
+       
         
 class Sales_regForm(forms.Form):
     class Meta:

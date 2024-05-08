@@ -16,12 +16,17 @@ def landing(request):
 
 @login_required
 def index(request):
+    today_sitters = Sitter.objects.all().order_by('-id')
+    today_babys = Baby.objects.all().order_by('-id')
     all_sitters = Sitter.objects.all()
     all_babys = Baby.objects.all()
     count_sitters = Sitter.objects.count()
     count_babys = Baby.objects.count()
+
     # all_sale = Sale.objects.all()
     context = {
+        'today_babys': today_babys,
+        'today_sitters': today_sitters,
         'count_sitters': count_sitters,
         'count_babys': count_babys,
         'all_sitters': all_sitters,
@@ -126,6 +131,12 @@ def babys(request):
     }
     template = loader.get_template('dayStarApp/babies.html')
     return HttpResponse(template.render(context))
+
+def deleteBaby(request, id):
+    Baby.objects.filter(id=id).delete()
+    return redirect('/babies')
+
+
 
 # supply views
 @login_required

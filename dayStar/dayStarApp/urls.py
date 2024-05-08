@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 # app urls 
 urlpatterns = [
     path('', views.landing, name='landing'),
-    path('home/', views.index, name='home'),
+    path('index/', views.index, name='index'),
 
     # sitter urls
     path('sitter-reg/', views.sitterReg, name='sitter-reg'),
@@ -17,6 +17,8 @@ urlpatterns = [
     # baby urls
     path('babyreg/', views.babyRegistration, name='baby'),
     path('babies/', views.babys, name='babys'),
+    # path('edit/<int:item_id>/', views.edit_baby, name='edit_baby'),
+    path('delete/<int:id>/', views.deleteBaby, name="delete"),
 
     #supply urls
     path('supply/', views.supply, name='supply'),
