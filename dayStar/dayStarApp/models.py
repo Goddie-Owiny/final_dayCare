@@ -5,7 +5,7 @@ from django.utils import timezone
 # Create your models here.
 # sitter Model
 class Sitter(models.Model):
-    name = models.CharField(max_length=100, blank=False)
+    name = models.CharField(max_length=100, null=True, blank=False)
     age = models.PositiveIntegerField(default=1, blank=False)
     gender = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -34,13 +34,15 @@ class Baby(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    age = models.IntegerField(default=1)
+    age = models.PositiveIntegerField(default=0,)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES, default="Male")
     location = models.CharField(max_length=100)
-    period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, blank=False, null=True, default=0)
+    period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, blank=False, null=True, default=None)
     baby_Number = models.IntegerField()
     brought_by = models.CharField(max_length=100)
     parent_Name = models.CharField(max_length=100)
+    brought_by = models.CharField(max_length=100)
+    status = models.BooleanField(null=True)
 
 class Sale(models.Model):
     item = models.CharField(max_length=100, default=0)

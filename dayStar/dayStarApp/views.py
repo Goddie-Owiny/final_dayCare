@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
+from .models import *
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -33,19 +34,33 @@ def index(request):
 # sitter views   
 @login_required
 def sitterReg(request):
-    addSitterForm = Sitter_regForm(request.POST)
-    message = None
     if request.method == 'POST':
-        if addSitterForm.is_valid():
-            newSitter = addSitterForm.save(commit = False)
-            newSitter.save()
+        form = Sitter_regForm(request.POST)
+        if form.is_valid():
+            # If form is valid, create a Sitter object with validated cleaned data
+            Sitter.objects.create(
+                name=form.cleaned_data['name'],
+                age=form.cleaned_data['age'],
+                gender=form.cleaned_data['gender'],
+                location=form.cleaned_data['location'],
+                contact=form.cleaned_data['contact'],
+                education_Level=form.cleaned_data['education_Level'],
+                religion=form.cleaned_data['religion'],
+                next_of_kin=form.cleaned_data['next_of_kin'],
+                recommended_by=form.cleaned_data['recommended_by'],
+                sitter_number=form.cleaned_data['sitter_number'],
+                NIN=form.cleaned_data['NIN']
+            )
             message = "Sitter Added Successfully!"
+            return redirect('sitters')  # Redirect to a sitters page
         else:
             message = "Sitter Registration Failed"
-            return redirect('sitter-reg')
-        return redirect('sitters')
-    return render(request, 'dayStarApp/sitter_reg.html', {'addSitterForm': addSitterForm, 'message': message})
+    else:
+        form = Sitter_regForm()
+        message = ""
 
+    return render(request, 'dayStarApp/sitter_reg.html', {'form': form, 'message': message})
+    
 def sitters(request): 
     all_sitters = Sitter.objects.all()
     context = {
@@ -77,19 +92,31 @@ def edit_page(request, item_id):
 # Baby views
 @login_required
 def babyRegistration(request):
-    addBabyForm = Baby_regForm()
-    message = None
     if request.method == 'POST':
-        addBabyForm = Baby_regForm(request.POST)
-        if addBabyForm.is_valid():
-            newSitter = addBabyForm.save()
-            message = "Baby Registered Successfully!"
-            # Redirect to the 'babies' page after successful registration
-            return redirect('babys')
+        form = Baby_regForm(request.POST)
+        if form.is_valid():
+            # If form is valid, create a baby object with validated cleaned data
+            Baby.objects.create(
+                name=form.cleaned_data['name'],
+                age=form.cleaned_data['age'],
+                gender=form.cleaned_data['gender'],
+                location=form.cleaned_data['location'],
+                # period_of_stay=form.cleaned_data['period_of_stay'],
+                baby_Number=form.cleaned_data['baby_Number'],
+                brought_by=form.cleaned_data['brought_by'],
+                parent_Name=form.cleaned_data['parent_Name'],
+                status=form.cleaned_data['status']
+            )
+            message = "Sitter Added Successfully!"
+            return redirect('babys')  # Redirect to a sitters page
+        else:
+            message = "Sitter Registration Failed"
     else:
-        addBabyForm = Baby_regForm()
+        form = Baby_regForm()
+        message = ""
 
-    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm, 'message': message})
+    return render(request, 'dayStarApp/baby_reg.html', {'form': form, 'message': message})
+
 
 @login_required
 def babys(request):
