@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'dayStarApp',
     'crispy_forms',
     'crispy_bootstrap4',
-    # 'django-crispy-forms',
+    # 'django_crispy_forms',
 ]
 
 MIDDLEWARE = [

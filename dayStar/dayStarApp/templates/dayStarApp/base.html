@@ -184,13 +184,13 @@ rel="stylesheet"
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                   <li>
-                      <a href="#">
-                      <i class="bi bi-circle"></i><span>Payments</span>
+                      <a href="{% url 'sale' %}">
+                      <i class="bi bi-circle"></i><span>Sales</span>
                       </a>
                   </li>
                   <li>
-                      <a href="/supply/">
-                      <i class="bi bi-circle"></i><span>Sales</span>
+                      <a href="{% url 'payment' %}">
+                      <i class="bi bi-circle"></i><span>Payments</span>
                       </a>
                   </li>
                 </ul>
@@ -248,18 +248,18 @@ rel="stylesheet"
     </aside>
     {% block content %} {% endblock %}
     <!-- Footer -->
-    <footer class="container-fluid footer mt-3">
-        <div class="row">
-          <div class="copyright col-6">
-            <div class="rules">
-              <p> &copy; Copyright <strong><span> DayStar Day Care</span></strong>. All Rights Reserved</p> 
-            </div>
+    <div class="container-fluid mt-5 pt-4" style="background: #a74527; bottom: 0;">
+      <footer>
+          <div class="row mt-3">
+              <div class="col-md-12">
+                  <p class="text-center text-light">&copy; Copyright: DayStar Day Care 2021. <span>All Rights Reserved</span></p>
+              </div>
+              <div class="col-md-12">
+                  <p class="text-center" style="color: black;">Designed by: <span class="bi bi-github"><a class="text-dark" href="https://github.com/Goddie-Owiny"> Godfrey Owiny</a> </span></p>
+              </div>
           </div>
-          <div class="col-6 copyright">
-            <p> Designed by<a target="_blank" href="https://github.com/dashboard"><strong>@Goddie</strong></a></p>
-          </div>
-        </div>
-    </footer>
+      </footer>
+  </div>
 
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

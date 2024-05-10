@@ -19,15 +19,9 @@
             ><strong>Sitters</strong>
           </p>
         </div>
+        
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
-          <h2 class="text-center">100</h2>
-          <p>
-            <span><i class="bi bi-people total-icon"></i></span
-            ><strong>Employees</strong>
-          </p>
-        </div>
-        <div class="sitter col-md-2 d-md-block ml-5 mb-3">
-          <h2 class="text-center">UGX. 500000</h2>
+          <h2 class="text-center">UGX. {{ total_payments }}</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
             ><strong>Inventories</strong>
@@ -89,7 +83,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for baby in today_babys %}
+                {% comment %} {% for baby in today_babys %} {% endcomment %}
                   <tr>
                       <td>{{ baby.name }}</td>
                       <td>{{ baby.age }}</td>
@@ -112,7 +106,7 @@
                           <a href="/editbabies/{{ baby.id }}" class="text-blue-500"> Edit </a>
                       </td> 
                   </tr>
-                {% endfor %}
+                {% comment %} {% endfor %} {% endcomment %}
             </tbody>
         </table>
         </div>

@@ -15,14 +15,18 @@ urlpatterns = [
     path('delete/<int:id>/', views.deleteSitter, name="delete"),
 
     # baby urls
-    path('babyreg/', views.babyRegistration, name='baby'),
+    path('babyreg/', views.babyReg, name='babyreg'),
     path('babies/', views.babys, name='babys'),
     # path('edit/<int:item_id>/', views.edit_baby, name='edit_baby'),
     path('delete/<int:id>/', views.deleteBaby, name="delete"),
 
-    #supply urls
-    path('supply/', views.supply, name='supply'),
-    path('supply/sale/<int:id>', views.supply, name='supply'),
+    #payment urls
+    path('payment/', views.payment, name='payment'),
+    path('payment/sale/<int:id>', views.payment, name='payment'),
+
+    #sales
+    path('sale/', views.sale, name='sale'),
+    path('sale/addstock/', views.addItem, name='addstock'),
     
 
     # admin logs urls
