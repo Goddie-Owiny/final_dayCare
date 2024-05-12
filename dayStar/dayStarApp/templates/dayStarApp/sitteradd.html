@@ -8,13 +8,13 @@
       action=""
       method="POST"
       novalidate="false"
-      class="bg-light p-3 mt-3 rounded-30 shadow-lg form"
+      class="bg-light p-3 mt-5 rounded-30 shadow-lg form"
       id="form"
     >
-      <h2 class="mt-5 text-center">Register Baby</h2>
+      <h2 class="mt-5 text-center">Add payment</h2>
       <br/>
-      {% csrf_token %} 
-      {{ addBabyForm|crispy }}
+      {% csrf_token %}
+      {{ form|crispy }}  
 
       <button
         class="btn"
@@ -31,5 +31,4 @@
     </form>
   </div>
 </main>
-
-{% endblock %} 
+{% endblock %}

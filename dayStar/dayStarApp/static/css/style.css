@@ -253,9 +253,10 @@ h6 {
   display: grid;
   margin: auto;
   max-width: 700px;
-  border: 1px solid #a74527;
+  border: 5px solid #a74527;
   padding: 2px;
   border-radius: 2rem;
+  background-color: #1e7875;
 }
 
 #admin-login .admin-form{
@@ -551,20 +552,6 @@ th .btn-secondary:focus {
   background: none;
 }
 
-td .bi-eye-slash {
-  color: #b5b4b4;
-  font-size: 15px;
-  text-align: center;
-  border: 1px solid #b5b4b4;
-  background: #a74527;
-  padding: 5px 6px;
-  border-radius: 50%;
-}
-
-td .bi-eye-slash:hover {
-  background: #a74527ed;
-  color: white;
-}
 
 /* footer */
 .footer {
@@ -587,4 +574,19 @@ td .bi-eye-slash:hover {
   color: rgb(225, 222, 222);
   font-size: 80%;
   padding-left: 5px;
+}
+
+
+/* Search styles */
+.search-form {
+  display: flex;
+  background-color: red;
+  gap: 10px; /* Adjust the gap between fields */
+}
+.search-form input[type="text"] {
+  flex-grow: 1;
+  min-width: 200px; /* Adjust the minimum width of the input field */
+}
+.search-form input[type="submit"] {
+  flex-shrink: 0;
 }

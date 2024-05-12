@@ -54,7 +54,7 @@ rel="stylesheet"
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{% static 'images/avatar.JPG' %}" alt="Profile" class="rounded-circle" width="35">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Godfrey</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #1e7875;">Godfrey</span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -162,17 +162,17 @@ rel="stylesheet"
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i><span>Payments</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>General Tables</span>
+                    <a href="/sitterpay">
+                    <i class="bi bi-circle"></i><span>Sitter Payments</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                    <i class="bi bi-circle"></i><span>Data Tables</span>
+                    <a href="/babypay">
+                    <i class="bi bi-circle"></i><span>Baby Payments</span>
                     </a>
                 </li>
                 </ul>
@@ -189,7 +189,7 @@ rel="stylesheet"
                       </a>
                   </li>
                   <li>
-                      <a href="{% url 'payment' %}">
+                      <a href="#">
                       <i class="bi bi-circle"></i><span>Payments</span>
                       </a>
                   </li>

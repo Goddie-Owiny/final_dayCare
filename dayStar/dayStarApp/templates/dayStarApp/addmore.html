@@ -11,10 +11,10 @@
       class="bg-light p-3 mt-3 rounded-30 shadow-lg form"
       id="form"
     >
-      <h2 class="mt-5 text-center">Register Baby</h2>
+      <h2 class="mt-5 text-center">Add more Dolls</h2>
       <br/>
       {% csrf_token %} 
-      {{ addBabyForm|crispy }}
+      {{ form|crispy }}
 
       <button
         class="btn"

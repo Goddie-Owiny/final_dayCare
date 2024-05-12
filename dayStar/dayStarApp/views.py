@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseBadRequest
 from .forms import *
 from . filters import *
 from .models import *
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+
 from django.urls import reverse
 from datetime import datetime
 
@@ -17,23 +19,23 @@ def landing(request):
 
 @login_required
 def index(request):
-    total_payments = Payment.objects.aggregate(total_amount=models.Sum('amount'))['total_amount'] or 0
     today_sitters = Sitter.objects.all().order_by('-id')
     today_babys = Baby.objects.all().order_by('-id')
     all_sitters = Sitter.objects.all()
     all_babys = Baby.objects.all()
     count_sitters = Sitter.objects.count()
     count_babys = Baby.objects.count()
+    onduty = Sitter_on_duty.objects.all()
 
     # all_sale = Sale.objects.all()
     context = {
-        'total_payments': total_payments,
         'today_babys': today_babys,
         'today_sitters': today_sitters,
         'count_sitters': count_sitters,
         'count_babys': count_babys,
         'all_sitters': all_sitters,
         'all_babys': all_babys,
+        'onduty': onduty
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
@@ -109,10 +111,6 @@ def babys(request):
     all_babys = Baby.objects.all().order_by('id')
     babysearch=BabyFilter(request.GET, queryset=all_babys)
     all_babys=babysearch.qs
-    context = {
-        'babysearch': babysearch,
-        'all_babys': all_babys,
-    }
     return render(request, 'dayStarApp/babies.html', {'all_babys': all_babys, 'babysearch': babysearch})
 
 def deleteBaby(request, id):
@@ -121,42 +119,70 @@ def deleteBaby(request, id):
 
 
 # supply views
-@login_required
-def payment(request):
-    if request.method == 'POST':
-        form = Payment_regForm(request.POST)
-        if form.is_valid():
-            # If form is valid, create a baby object with validated cleaned data
-            Payment.objects.create(
-                baby=form.cleaned_data['baby'],
-                period_of_stay=form.cleaned_data['period_of_stay'],
-                amount=form.cleaned_data['amount'],
-                # date_of_payment=form.cleaned_data['date_of_payment']    
-            )
-            message = "Payment made successfully"
-            return redirect('index')  # Redirect to a index page
-    else:
-        form = Payment_regForm()
-        message = ""
+# @login_required
+# def payment(request):
+#     if request.method == 'POST':
+#         form = Payment_regForm(request.POST)
+#         if form.is_valid():
+#             # If form is valid, create a baby object with validated cleaned data
+#             Payment.objects.create(
+#                 baby=form.cleaned_data['baby'],
+#                 period_of_stay=form.cleaned_data['period_of_stay'],
+#                 amount=form.cleaned_data['amount'],
+#                 # date_of_payment=form.cleaned_data['date_of_payment']    
+#             )
+#             message = "Payment made successfully"
+#             return redirect('index')  # Redirect to a index page
+#     else:
+#         form = Payment_regForm()
+#         message = ""
 
-    return render(request, 'dayStarApp/payment.html', {'form': form, 'message': message})
+#     return render(request, 'dayStarApp/payment.html', {'form': form, 'message': message})
 
+#sell item form
 @login_required
 def sale(request):
-    item_sell = Item_sellForm(request.POST)
+    itemform = Item_sellForm(request.POST)
     sell_message = None
     if request.method == 'POST':
-        if item_sell.is_valid():
-            newItem = item_sell.save(commit=False)
+        if itemform.is_valid():
+            newItem = itemform.save(commit=False)
             newItem.save()
             sell_message = "Item Sold Successfully!"
             return redirect('sale')
         else:
             sell_message = "Item Sell failed!"
     else:
-        item_sell = Item_sellForm()
-    return render(request, 'dayStarApp/sale.html', {'item_sell': item_sell, 'sell_message': sell_message})
+        itemform = Item_sellForm()
+    item = AddItem.objects.all()
+    return render(request, 'dayStarApp/sale.html', {'itemform': itemform, 'item': item, 'sell_message': sell_message})
 
+def selling(request, pk):
+    sell = AddItem.objects.get(id=pk)
+    form = Item_sellForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            newItem = form.save(commit=False)
+            newItem.doll_name = sell
+            newItem.amount_paid = sell.price
+            newItem.save()
+            sell_quantity = int(request.POST['quantity'])
+            sell.quantity -= sell_quantity
+            sell.save()
+            print(sell.doll_name) 
+            print(request.POST['quantity'])
+            print(sell.quantity)
+            return redirect('sale')
+    return render(request, 'dayStarApp/selling.html', {'form': form})
+
+def salesrecord(request):
+    sales = ItemSelling.objects.all()
+    total = sum([item.amount_paid for item in sales if item.amount_paid is not None])
+    change = sum([item.get_change() for item in sales if item.get_change() is not None])
+    net = total - change
+    return render(request, 'dayStarApp/salerecord.html', {  'total': total, 'sales': sales, 'total': total, 'net': net, 'change': change})
+
+#adding stock to sale
 @login_required
 def addItem(request):
     add_item_form = Item_regForm(request.POST)
@@ -173,7 +199,113 @@ def addItem(request):
         add_item_form = Item_regForm()
 
     return render(request, 'dayStarApp/addStock.html', {'addItemForm': add_item_form, 'add_message': add_message})
-  
+
+def onduty(request):
+    if request.method == 'POST':
+        form = Sitter_dutyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('allonduty')
+    else:
+        form = Sitter_dutyForm()
+    return render(request, 'dayStarApp/onduty.html', {'form': form})
+
+
+def allonduty(request):
+    duty = Sitter_on_duty.objects.all()
+    context ={
+        'duty': duty,
+    }
+    template = loader.get_template('dayStarApp/allOnduty.html')
+    return HttpResponse(template.render(context))
+    
+
+def editOnduty(request, id):
+    edited = get_object_or_404(Sitter_on_duty, id=id)
+    if request.method == 'POST':
+        form = Sitter_dutyForm(request.POST, instance=edited)
+        if form.is_valid():
+            form.save()
+            return redirect('allonduty')
+    else: 
+        form = Sitter_dutyForm(instance=edited)
+    return render(request, 'dayStarApp/editOnduty.html', {'form': form, 'edited': edited})
+
+def addmore(request, id):
+    issue_doll = AddItem.objects.get(id=id)
+    if request.method == 'POST':
+        form = Addmore(request.POST)
+        if form.is_valid():
+            newDoll = request.POST.get('quantity')
+            if newDoll:
+                try:
+                    added = int(newDoll)
+                    issue_doll.quantity += added
+                    issue_doll.save()
+                    print(added)
+                    print(issue_doll.quantity)
+                    return redirect('sale')
+                except ValueError:
+                    return HttpResponseBadRequest('Invalid quantity')
+    else:
+        form = Addmore()
+    return render(request, 'dayStarApp/addmore.html', {'form': form })
+
+#views for baby payments
+def babyPay(request):
+    baby = BabyPayment.objects.all()
+    return render(request, 'dayStarApp/babypay.html', {'baby': baby })
+
+def babyadd(request):
+    if request.method == 'POST':
+        form = BabyPaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('babypay')
+    else: 
+        form = BabyPaymentForm()
+    return render(request, 'dayStarApp/babyadd.html', {'form': form})
+
+def babyedit(request, id):
+    edited = get_object_or_404(BabyPayment, id=id)
+    if request.method == 'POST':
+        form = BabyPaymentForm(request.POST, instance=edited)
+        if form.is_valid():
+            form.save()
+            return redirect('babypay')
+    else: 
+        form = BabyPaymentForm(instance=edited)
+    return render(request, 'dayStarApp/babyedit.html', {'form': form, 'edited': edited})
+    
+
+#sitter payment views
+def sitterpay(request):
+    sitter = SitterPayment.objects.all()
+    return render(request, 'dayStarApp/sitterpay.html', {'sitter': sitter })
+
+def sitteradd(request):
+    if request.method == 'POST':
+        form = SitterPaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sitterpay')
+    else: 
+        form = SitterPaymentForm()
+    return render(request, 'dayStarApp/sitteradd.html', {'form': form})
+
+def sitteredit(request, id):
+    edited = get_object_or_404(SitterPayment, id=id)
+    if request.method == 'POST':
+        form = SitterPaymentForm(request.POST, instance=edited)
+        if form.is_valid():
+            form.save()
+            return redirect('sitterpay')
+    else: 
+        form = SitterPaymentForm(instance=edited)
+    return render(request, 'dayStarApp/sitteredit.html', {'form': form, 'edited': edited})
+
+
+# authetications
 @login_required
 def deleteSitter(request, id):
     Sitter.objects.filter(id=id).delete()
