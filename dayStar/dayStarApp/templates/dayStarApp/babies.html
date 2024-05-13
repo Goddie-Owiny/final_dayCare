@@ -25,9 +25,9 @@
                 <th data-type="tel">Gender</th>
                 <th>Period of Stay</th>
                 <th>Parent's Name</th>
+                <th>Assigned To</th>
                 <th>Status</th>
                 <th>More</th>
-                
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +39,7 @@
                     <td>{{ baby.gender }}</td>
                     <td>{{ baby.period_of_stay }}</td>
                     <td>{{ baby.parent_Name }}</td>
+                    <td>{{ baby.assigned_to }}</td>
                     <td>
                         {% if baby.status == False %}
                             <span class="badge" style="background-color: #a74527;">Out</span>

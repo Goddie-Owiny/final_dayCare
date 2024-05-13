@@ -8,19 +8,6 @@
   
     <a class="btn btn-lg" href="addstock/" style="background-color: #1e7875; color: white; border: none;"><span class="bi bi-cart4"> </span>Add New Stock</a>
     <a class="btn btn-lg" href="/salesrecord" style="background-color: #1e7875; color: white; border: none;"><span class="bi bi-cart4"> </span>Sales Record</a>
-    <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-keyboard="false" data-bs-backdrop="static" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLabel" style="color: #a74527; font-weight: bold; text-align: center;">Sell Available Stock</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
     <!-- item table -->
@@ -44,7 +31,7 @@
               <td>{{ items.doll_name }}</td>
               <td>{{ items.quantity }}</td>
               <td>{{ items.price }}</td>
-              <td><a href="{% url 'addmore' id=items.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Add More</a><span>|</span><a href="{% url 'selling' pk=items.id %}" class="btn btn-sm text-white m-1" style="background-color: #1e7875; border: none;">Sell</a>
+              <td><a href="{% url 'addmore' id=items.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Add More</a><span>|</span><a href="{% url 'selling' pk=items.id %}" class="btn btn-sm text-white m-1" style="background-color: #a74527; border: none;">Sell</a>
                 
               </td>
               

@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from datetime import datetime
 
@@ -7,9 +7,8 @@ from datetime import datetime
 # sitter Model
 class Sitter(models.Model):
     name = models.CharField(max_length=100, null=True, blank=False)
-    age = models.PositiveIntegerField(default=1, blank=False)
     gender = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, default="Kabalagala")
     contact = models.CharField(max_length=13, validators=[MinLengthValidator(10)])
     education_Level = models.CharField(max_length=255, blank=False, null=True)
     religion = models.CharField(max_length=100, blank=True)
@@ -79,20 +78,20 @@ class BabyPayment(models.Model):
     amount = models.IntegerField(default=0, choices=[(10000, '10000'), (15000, '15000'), (300000, '300000'), (450000, '45000')], null= True, blank=True)
     date_of_payment = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     duration_of_pay = models.CharField(max_length=100, choices=[("Half day", "Half day"), ("Full Day", "Full Day"), ("Monthly Full Day", "Monthly Full Day"),("Monthly Half Day", "Monthly Half Day")])
-    amount_paid = models.IntegerField(default=0,) 
+    amount_paid = models.PositiveIntegerField(default=0, validators=([MinValueValidator(3000)])) 
     
     
     def __str__(self):
         return f"{self.baby} {self.period_of_stay}"
     
     def change(self):
-        recieved = self.amount - self.amount_paid
+        recieved = self.amount_paid - self.amount 
         return int(recieved)
 
 class SitterPayment(models.Model):
     sitter = models.ForeignKey(Sitter_on_duty, on_delete=models.CASCADE, null=True, blank=True)
-    num_of_baby = models.IntegerField(default=0)
-    amount_paid = models.IntegerField(default=3000)
+    num_of_baby = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(6)])
+    amount_paid = models.PositiveIntegerField(default=3000)
 
     def sitterpay(self):
         total_pay = self.num_of_baby * self.amount_paid
@@ -100,8 +99,8 @@ class SitterPayment(models.Model):
 
 class AddItem(models.Model):
     doll_name = models.CharField(max_length=100, default=None)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    quantity = models.IntegerField(default=1, null=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(500)])
+    quantity = models.PositiveIntegerField(default=1, null=False)
 
     def __str__(self):
         return self.doll_name
@@ -109,8 +108,8 @@ class AddItem(models.Model):
 class ItemSelling(models.Model):
     baby = models.ForeignKey(Baby, on_delete=models.CASCADE, null=True, blank=True)
     doll_name = models.CharField(max_length=100, null=True, blank=True)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    quantity = models.IntegerField(default=1, null=True, blank=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(500)])
+    quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2, null=True, blank=True)
    
     def total_amount(self):

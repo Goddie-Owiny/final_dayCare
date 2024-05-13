@@ -8,8 +8,7 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-from django.urls import reverse
-from datetime import datetime
+from django.contrib import messages
 
 
 # Create your views here.
@@ -118,27 +117,6 @@ def deleteBaby(request, id):
     return redirect('/babies')
 
 
-# supply views
-# @login_required
-# def payment(request):
-#     if request.method == 'POST':
-#         form = Payment_regForm(request.POST)
-#         if form.is_valid():
-#             # If form is valid, create a baby object with validated cleaned data
-#             Payment.objects.create(
-#                 baby=form.cleaned_data['baby'],
-#                 period_of_stay=form.cleaned_data['period_of_stay'],
-#                 amount=form.cleaned_data['amount'],
-#                 # date_of_payment=form.cleaned_data['date_of_payment']    
-#             )
-#             message = "Payment made successfully"
-#             return redirect('index')  # Redirect to a index page
-#     else:
-#         form = Payment_regForm()
-#         message = ""
-
-#     return render(request, 'dayStarApp/payment.html', {'form': form, 'message': message})
-
 #sell item form
 @login_required
 def sale(request):
@@ -169,9 +147,9 @@ def selling(request, pk):
             sell_quantity = int(request.POST['quantity'])
             sell.quantity -= sell_quantity
             sell.save()
-            print(sell.doll_name) 
-            print(request.POST['quantity'])
-            print(sell.quantity)
+            # print(sell.doll_name) 
+            # print(request.POST['quantity'])
+            # print(sell.quantity)
             return redirect('sale')
     return render(request, 'dayStarApp/selling.html', {'form': form})
 
