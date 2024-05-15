@@ -13,13 +13,13 @@
     </button>
      <div class="addform w-50 p-4" style="box-shadow: 0 0 20px 0 rgba(1, 41, 112, 0.15); border-radius: 15px; display: grid; margin: auto;">
       <form action="" method= 'POST'>
-        {% if sell_message %}
+        {% if alert %}
             <div class="alert alert-success" role="alert">
-              {{ sell_message }}
+              {{ add_message }}
             </div>
-        {% elif sell_error_message %}
+            {% elif add_message %}
               <div class="alert alert-danger" role="alert">
-                {{ sell_error_message }}
+                {{ add_message }}
               </div>
         {% endif %} 
           <div class="mb-2 form_inner">

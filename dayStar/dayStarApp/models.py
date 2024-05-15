@@ -1,22 +1,28 @@
 from django.db import models
-from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils import timezone
 from datetime import datetime
 
 # Create your models here.
 # sitter Model
 class Sitter(models.Model):
+    contact_regex = r'^(\+256|0)\d{9}$'   # Regex for contact
+    contact_validator = RegexValidator(
+        regex=contact_regex,
+        message='Enter a valid Country contact'
+    )
+
     name = models.CharField(max_length=100, null=True, blank=False)
     gender = models.CharField(max_length=100)
     location = models.CharField(max_length=100, default="Kabalagala")
-    contact = models.CharField(max_length=13, validators=[MinLengthValidator(10)])
+    contact = models.CharField(max_length=13, validators=[MinLengthValidator(10), contact_validator])
     education_Level = models.CharField(max_length=255, blank=False, null=True)
     religion = models.CharField(max_length=100, blank=True)
     next_of_kin = models.CharField(max_length=200, blank=False, default= None)
     recommended_by = models.CharField(max_length=100, null=True, blank=True)
     sitter_number = models.CharField(max_length=10, unique=True, blank=False, default=None)
     # date_of_registration = models.DateTimeField(null=True, blank=False, default=timezone.now)
-    NIN = models.CharField(max_length=14, blank=False, null=True)
+    NIN = models.CharField(max_length=14, unique=True, blank=False, null=True)
 
     def __str__(self):
         return self.name
@@ -52,14 +58,12 @@ class Baby(models.Model):
     ("Half Day", "Half Day"),
     ]
 
-
-
     name = models.CharField(max_length=100)
     age = models.PositiveIntegerField(default=0, null=True, blank=False)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES, default="Male")
     location = models.CharField(max_length=100)
     period_of_stay = models.CharField(max_length=100, choices=PERIOD_CHOICES, null=True, blank=True)
-    baby_Number = models.IntegerField()
+    baby_Number = models.IntegerField(unique=True)
     brought_by = models.CharField(max_length=100)
     parent_Name = models.CharField(max_length=100)
     time_in = models.DateTimeField(auto_now=True)
@@ -75,10 +79,10 @@ class Baby(models.Model):
 class BabyPayment(models.Model):
     baby = models.ForeignKey(Baby, on_delete=models.CASCADE, null=True, blank=True)
     period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, null=True, blank=True)
-    amount = models.IntegerField(default=0, choices=[(10000, '10000'), (15000, '15000'), (300000, '300000'), (450000, '45000')], null= True, blank=True)
     date_of_payment = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    amount = models.IntegerField(default=0, choices=[(10000, '10000'), (15000, '15000'), (300000, '300000'), (450000, '450000')], null= True, blank=True)
     duration_of_pay = models.CharField(max_length=100, choices=[("Half day", "Half day"), ("Full Day", "Full Day"), ("Monthly Full Day", "Monthly Full Day"),("Monthly Half Day", "Monthly Half Day")])
-    amount_paid = models.PositiveIntegerField(default=0, validators=([MinValueValidator(3000)])) 
+    amount_paid = models.PositiveIntegerField(default=0, validators=([MinValueValidator(1000)])) 
     
     
     def __str__(self):
@@ -110,7 +114,7 @@ class ItemSelling(models.Model):
     doll_name = models.CharField(max_length=100, null=True, blank=True)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(500)])
     quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
-    price = models.DecimalField(default=0, max_digits=10, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(default=5000, max_digits=10, decimal_places=2, null=True, blank=True)
    
     def total_amount(self):
         total = self.quantity * self.price

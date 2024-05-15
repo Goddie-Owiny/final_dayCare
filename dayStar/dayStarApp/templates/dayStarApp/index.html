@@ -9,14 +9,14 @@
           <h2 class="text-center">{{ count_babys }}</h2>
           <p>
             <span><i class="bi bi-person total-icon"></i></span
-            ><strong>Toddlers</strong>
+            ><strong>Registered Kids</strong>
           </p>
         </div>
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
           <h2 class="text-center heading text-bold">{{ count_sitters }}</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
-            ><strong>Sitters</strong>
+            ><strong>Registered Sitters</strong>
           </p>
         </div>
         
@@ -24,14 +24,14 @@
           <h2 class="text-center">UGX. {{ total_payments }}</h2>
           <p>
             <span><i class="bi bi-people total-icon"></i></span
-            ><strong>Inventories</strong>
+            ><strong>All Payments</strong>
           </p>
         </div>
       </div>
     </div> <hr>
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <table id="dataTable" class="table table-stripped sitter-table mt-3 p-3">
               <caption class="caption-top text-center"><h4>Available Sitters Today</h4></caption>
               <thead>
@@ -65,8 +65,14 @@
             </table>
         </div>
 
-        <div class="col-md-6">
-          <table id="dataTable" class="table table-stripped">
+        <div class="col-md-4">
+          <div class="card border m-3" style="max-width: 15rem; background: #1e7875;">
+            <div class="card-body text-success">
+              <h1 class="text-center text-light" style="font-size: 4rem; font-weight: 10rem;">{{ all_onduty }}</h1>
+            </div>
+            <div class="card-footer bg-transparent border-secondary"><h3 class="text-center text-light">Sitters on Duty</h3></div>
+          </div>
+          {% comment %} <table id="dataTable" class="table table-stripped">
             <caption class="caption-top text-center"><h4>Babies Available today</h4></caption>
             <thead>
                 <tr>
@@ -83,7 +89,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% comment %} {% for baby in today_babys %} {% endcomment %}
+                 {% for baby in today_babys %} 
                   <tr>
                       <td>{{ baby.name }}</td>
                       <td>{{ baby.age }}</td>
@@ -106,10 +112,10 @@
                           <a href="/editbabies/{{ baby.id }}" class="text-blue-500"> Edit </a>
                       </td> 
                   </tr>
-                {% comment %} {% endfor %} {% endcomment %}
+                {% endfor %} 
             </tbody>
         </table>
-        </div>
+        </div> {% endcomment %}
       </div>
       
     </div>

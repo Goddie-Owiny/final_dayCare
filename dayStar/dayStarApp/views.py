@@ -24,7 +24,7 @@ def index(request):
     all_babys = Baby.objects.all()
     count_sitters = Sitter.objects.count()
     count_babys = Baby.objects.count()
-    onduty = Sitter_on_duty.objects.all()
+    all_onduty = Sitter_on_duty.objects.count()
 
     # all_sale = Sale.objects.all()
     context = {
@@ -34,7 +34,7 @@ def index(request):
         'count_babys': count_babys,
         'all_sitters': all_sitters,
         'all_babys': all_babys,
-        'onduty': onduty
+        'all_onduty': all_onduty,
     }
     template = loader.get_template('dayStarApp/index.html')
     return HttpResponse(template.render(context))
@@ -75,8 +75,8 @@ def viewSitter(request, id): # sttier viewing page
     template = loader.get_template('dayStarApp/view_sitter.html')
     return HttpResponse(template.render(context))
 
-def edit_page(request, item_id):
-    item = Sitter.objects.get(pk=item_id)
+def edit_sitterdetails(request, id):
+    item = get_object_or_404(Sitter, id=id)
     if request.method == 'POST':
         form = Sitter_regForm(request.POST, instance=item)
         if form.is_valid():
@@ -85,6 +85,17 @@ def edit_page(request, item_id):
     else:
         form = Sitter_regForm(instance=item)
     return render(request, 'dayStarApp/edit_sitter.html', {'form': form})
+
+# edited = get_object_or_404(SitterPayment, id=id)
+#     if request.method == 'POST':
+#         form = SitterPaymentForm(request.POST, instance=edited)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('sitterpay')
+#     else: 
+#         form = SitterPaymentForm(instance=edited)
+#     return render(request, 'dayStarApp/sitteredit.html', {'form': form, 'edited': edited})
+
 
 # Baby views
 @login_required
@@ -158,7 +169,7 @@ def salesrecord(request):
     total = sum([item.amount_paid for item in sales if item.amount_paid is not None])
     change = sum([item.get_change() for item in sales if item.get_change() is not None])
     net = total - change
-    return render(request, 'dayStarApp/salerecord.html', {  'total': total, 'sales': sales, 'total': total, 'net': net, 'change': change})
+    return render(request, 'dayStarApp/salerecord.html', {'total': total, 'sales': sales, 'total': total, 'net': net, 'change': change})
 
 #adding stock to sale
 @login_required
@@ -286,8 +297,16 @@ def sitteredit(request, id):
 # authetications
 @login_required
 def deleteSitter(request, id):
-    Sitter.objects.filter(id=id).delete()
-    return redirect('/home')
+    sitter = Sitter.objects.get(id=id)
+    if request.method == 'POST':
+        # If the confirmation form is submitted
+        if 'confirm_delete' in request.POST:
+            # Delete the sitter
+            sitter.delete()
+            return redirect('sitters')
+        elif 'cancel_delete' in request.POST:
+            return redirect('sitters')
+    return render(request, 'dayStarApp/sitters.html', {'sitter': sitter})
 
 @login_required
 def logout_view(request):

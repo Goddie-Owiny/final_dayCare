@@ -16,7 +16,7 @@
             <th scope="col">#</th>
             <th scope="col">Baby Name</th>
             <th scope="col">Period of Stay</th>
-            <th scope="col">Amount</th>
+            <th scope="col">Fee</th>
             <th scope="col">Date of Payment</th>
             <th scope="col">Duration of payment</th>
             <th scope="col">Amount Paid</th>
@@ -36,7 +36,7 @@
               <td>{{ baby.date_of_payment }}</td>
               <td>{{ baby.duration_of_pay }}</td>
               <td>UGX {{ baby.amount_paid }}</td>
-              {% comment %} <td>UGX {{ baby.change }}</td> {% endcomment %}
+              <td>UGX {{ baby.change }}</td>
               <td><a href="{% url 'babyedit' id=baby.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Edit</a>
                 
             </tr>
