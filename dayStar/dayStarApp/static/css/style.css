@@ -44,9 +44,9 @@
 }
 
 #centered-text h1 {
-  font-size: 2.4rem;
+  font-size: 5vw;
   text-align: center;
-  font-weight: bold;
+  font-weight: 900;
   color: #1e7875;
 }
 
@@ -66,10 +66,12 @@
 }
 
 #centered .login{
-  padding: 1.5rem 5rem;
+  padding: 1rem 2rem;
   border-radius: 50px;
   background-color: #1e7875;
   color: white;
+  font-size: larger;
+  font-family: 'mali';
 }
 
 .carousel-item img {
@@ -594,4 +596,8 @@ th .btn-secondary:focus {
 }
 .search-form input[type="submit"] {
   flex-shrink: 0;
+}
+
+.form .asteriskField, .addform .asteriskField{
+  color: red;
 }

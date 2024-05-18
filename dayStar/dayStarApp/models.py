@@ -12,6 +12,11 @@ class Sitter(models.Model):
         message='Enter a valid Country contact'
     )
 
+    NIN_regex = r'^C(M|F)\d{9}[A-Z]$'
+    NIN_validator = RegexValidator(
+    regex=NIN_regex,
+    message='Enter a valid Ugandan NIN'
+)
     name = models.CharField(max_length=100, null=True, blank=False)
     gender = models.CharField(max_length=100)
     location = models.CharField(max_length=100, default="Kabalagala")
@@ -21,8 +26,8 @@ class Sitter(models.Model):
     next_of_kin = models.CharField(max_length=200, blank=False, default= None)
     recommended_by = models.CharField(max_length=100, null=True, blank=True)
     sitter_number = models.CharField(max_length=10, unique=True, blank=False, default=None)
-    # date_of_registration = models.DateTimeField(null=True, blank=False, default=timezone.now)
-    NIN = models.CharField(max_length=14, unique=True, blank=False, null=True)
+    date_of_registration = models.DateField(default=timezone.now, null=True, blank=False)
+    NIN = models.CharField(max_length=14, unique=True, blank=False, null=True, validators=[MinLengthValidator(10)])
 
     def __str__(self):
         return self.name
@@ -59,7 +64,7 @@ class Baby(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    age = models.PositiveIntegerField(default=0, null=True, blank=False)
+    age = models.PositiveIntegerField(default=0, null=True,  blank=False, validators=[MinValueValidator(1, message='Baby must be atleast 1 year old'), MaxValueValidator(6, message= 'Baby must be between 1 and 6 years old')])
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES, default="Male")
     location = models.CharField(max_length=100)
     period_of_stay = models.CharField(max_length=100, choices=PERIOD_CHOICES, null=True, blank=True)
@@ -94,7 +99,7 @@ class BabyPayment(models.Model):
 
 class SitterPayment(models.Model):
     sitter = models.ForeignKey(Sitter_on_duty, on_delete=models.CASCADE, null=True, blank=True)
-    num_of_baby = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(6)])
+    num_of_baby = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(6)])
     amount_paid = models.PositiveIntegerField(default=3000)
 
     def sitterpay(self):
@@ -103,7 +108,7 @@ class SitterPayment(models.Model):
 
 class AddItem(models.Model):
     doll_name = models.CharField(max_length=100, default=None)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(500)])
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     quantity = models.PositiveIntegerField(default=1, null=False)
 
     def __str__(self):
@@ -111,22 +116,34 @@ class AddItem(models.Model):
 
 class ItemSelling(models.Model):
     baby = models.ForeignKey(Baby, on_delete=models.CASCADE, null=True, blank=True)
-    doll_name = models.CharField(max_length=100, null=True, blank=True)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(500)])
+    doll_name = models.CharField(max_length=100, null=False, blank=True)
+    amount_paid = models.IntegerField(blank=True)
     quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
-    price = models.DecimalField(default=5000, max_digits=10, decimal_places=2, null=True, blank=True)
+    price = models.IntegerField(blank=True, null=True)
    
     def total_amount(self):
-        total = self.quantity * self.price
-        return int(total)
+        if self.price is not None and self.quantity is not None:
+            total = self.quantity * self.price
+            return int(total)
+        else:
+            return 0  
+
     
     def get_change(self):
-        # Check if amount_paid is None
-        if self.amount_paid is None:
-            return None
-        
-        # Otherwise, proceed with the calculation
         change = self.total_amount() - self.amount_paid
-        return change
+        return int(change)
     
-      
+class Stock(models.Model):
+    stock_name = models.CharField(max_length=100, null=True, blank=False)
+    quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
+    date = models.DateField(default=timezone.now, null=True, blank=True)
+
+    def __str__(self):
+        return self.stock_name
+
+class Issue_Stock(models.Model):
+    stock_name = models.ForeignKey(Stock, on_delete=models.CASCADE, null=True, blank=False)
+    quantity = models.PositiveIntegerField(default=1, null=True, blank=False)
+    date_of_issue = models.DateTimeField(null=True, blank=False)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)

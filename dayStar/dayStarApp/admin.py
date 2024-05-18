@@ -10,6 +10,8 @@ admin.site.register(Sitter_on_duty)
 admin.site.register(SitterPayment)
 admin.site.register(ItemSelling)
 admin.site.register(AddItem)
+admin.site.register(Stock)
+admin.site.register(Issue_Stock)
 
 
 

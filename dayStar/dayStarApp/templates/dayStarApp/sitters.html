@@ -18,12 +18,13 @@
                   <th>
                     <b>N</b>ames
                   </th>
-                  <th>NIN</th>
+                  <th>Date of Registration</th>
                   <th>Location</th>
+                  <th>Next of Kin</th>
                   <th data-type="tel">Contact</th>
                   <th>Education Level</th>
                   <th>More</th>
-                  <th>
+                  {% comment %} <th>
                     <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <span><i class="bi bi-three-dots"></i></span>
@@ -33,25 +34,28 @@
                       <li><a class="dropdown-item" href="#"><span><i class="bi bi-info"></i></span>View Details</a></li>
                       <li><a class="dropdown-item" href="#"><span><i class="bi bi-sliders"></i></span>Others</a></li>
                     </ul>
-                  </div></th>
+                  </div></th> {% endcomment %}
                 </tr>
               </thead>
               <tbody>
                 {% for each in all_sitters %}
+                
                   <tr>
                       <td>{{ each.name }}</td>
-                      <td>{{ each.NIN }}</td>
+                      <td>{{ each.date_of_registration }}</td>
                       <td>{{ each.location }}</td>
+                      <td>{{ each.next_of_kin }}</td>
                       <td>{{ each.contact }}</td>
                       <td>{{ each.education_Level }}</td>
                       <td>
                         <a href="/details/{{ each.id }}" class="text-blue-500"> Details </a>
                       </td>
-                      <td>
+                      {% comment %} <td>
                         <a href="/editsitters/{{ each.id }}" class="text-blue-500 text-center"> Edit </a>
-                      </td>
+                      </td> {% endcomment %}
                       {% comment %} <td><span><i class="bi bi-eye-slash"></i></span></td>  {% endcomment %}
                   </tr>
+                
                 {% endfor %}
               </tbody>
             </table>

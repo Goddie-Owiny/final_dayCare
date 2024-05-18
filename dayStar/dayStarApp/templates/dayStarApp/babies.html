@@ -5,8 +5,9 @@
 
 <div class="container">
     <main class="main" id="main">
+
         <a href="/babyreg/"><button class="btn btn-outline-info btn-lg"><span><i class="bi bi-plus"></i></span>Add Baby <span></span></button></a>
-        <form action="" method="GET" class="search-form d-flex gap-2 float-right">
+        <form action="" method="GET" class="search-form d-flex gap-2">
             {{ babysearch.form }}
             <input type="submit" value="Find" class="btn btn-secondary" style="background-color: #1e7875; border: none;">
         </form>
@@ -53,7 +54,6 @@
                     <td>
                         <a href="/editbabies/{{ baby.id }}" class="text-blue-500"> Edit </a>
                     </td>
-                    {% comment %} <td><span><i class="bi bi-eye-slash"></i></span></td>  {% endcomment %}
                 </tr>
                 {% endfor %}
             </tbody>

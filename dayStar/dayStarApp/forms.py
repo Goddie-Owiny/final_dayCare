@@ -20,7 +20,7 @@ class Baby_regForm(ModelForm):
 class Item_sellForm(ModelForm):   # item sellling form
     class Meta:
         model = ItemSelling
-        fields = ['baby', 'doll_name', 'quantity', 'amount_paid']
+        fields = ['baby', 'quantity', 'amount_paid']
 
 
 class Item_regForm(ModelForm):       # item registration form
@@ -59,4 +59,24 @@ class Sitter_dutyForm(forms.ModelForm):   # sitter duty form
 class Addmore(ModelForm):  #adding item form
     class Meta:
         model = AddItem
+        fields = ['quantity']
+
+
+
+class StockForm(ModelForm):
+    class Meta:
+        model = Stock
+        fields = '__all__'
+
+class IssueForm(ModelForm):
+    class Meta:
+        model = Issue_Stock
+        fields = '__all__'
+        widgets = {
+            'date_of_issue': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+class AddexistingStock(ModelForm):
+    class Meta:
+        model = Stock
         fields = ['quantity']

@@ -23,7 +23,7 @@
         <div class="sitter col-md-2 d-md-block ml-5 mb-3">
           <h2 class="text-center">UGX. {{ total_payments }}</h2>
           <p>
-            <span><i class="bi bi-people total-icon"></i></span
+            <span><i class="bi bi-cash-coin total-icon"></i></span
             ><strong>All Payments</strong>
           </p>
         </div>
@@ -55,9 +55,6 @@
                       <td>{{ sitter.contact }}</td>
                       <td>
                         <a href="/details/{{ sitter.id }}" class="text-blue-500"> Details </a>
-                      </td>
-                      <td>
-                        <a href="/editsitters/{{ sitter.id }}" class="text-blue-500 text-center"> Edit </a>
                       </td>
                   </tr>
                 {% endfor %}

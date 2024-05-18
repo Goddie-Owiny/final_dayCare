@@ -29,7 +29,7 @@ urlpatterns = [
     # baby urls
     path('babyreg/', views.babyReg, name='babyreg'),
     path('babies/', views.babys, name='babys'),
-    # path('edit/<int:item_id>/', views.edit_baby, name='edit_baby'),
+    path('edit/<int:baby_id>/', views.edit_babydetails, name='edit_baby'),
     path('delete/<int:id>/', views.deleteBaby, name="delete"),
     path('babypay/', views.babyPay, name='babypay'),
     path('babyedit/<int:id>/', views.babyedit, name= 'babyedit'),
@@ -44,7 +44,12 @@ urlpatterns = [
     path('sale/addstock/', views.addItem, name='addstock'),
     path('addmore/<int:id>/', views.addmore, name='addmore'),
     
-    
+    #other stock
+    path('stock/', views.stock, name='stock'),
+    path('issuestock/<str:pk>/', views.issuestock, name='issuestock'),
+    path('addstock/<str:pk>/', views.addstock, name='addstock'),
+    path('editstock/<int:id>/', views.editstock, name='editstock'),
+    path('issuedstock/', views.issuedstock, name='issuedstock'),
 
     # admin logs urls
     path("login/", auth_views.LoginView.as_view(template_name='dayStarApp/login.html'), name="login"), 
