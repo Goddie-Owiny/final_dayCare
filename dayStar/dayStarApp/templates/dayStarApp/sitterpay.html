@@ -16,7 +16,7 @@
             <th scope="col">#</th>
             <th scope="col">Sitter Name</th>
             <th scope="col">Babies Attended</th> 
-            <th scope="col">Amount Paid</th>
+            <th scope="col">Amount Per Baby</th>
             <th scope="col">Total Amount Paid</th>
             <th scope="col">Action</th>
            
@@ -29,7 +29,7 @@
               <th scope="row">{{ sitter.id }}</th>
               <td>{{ sitter.sitter }}</td>
               <td>{{ sitter.num_of_baby }}</td>
-              <td>UGX {{ sitter.amount_paid }}</td>
+              <td>UGX {{ sitter.amount_per_baby  }}</td>
               <td>UGX {{ sitter.sitterpay }}</td>
               <td><a href="{% url 'sitteredit' id=sitter.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Edit</a>
                 

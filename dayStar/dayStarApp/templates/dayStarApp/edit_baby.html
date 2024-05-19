@@ -1,17 +1,32 @@
-{% extends "dayStarApp/base.html" %} {% load crispy_forms_tags %} {% load static
-    %} {% block content %} 
+{% extends "dayStarApp/base.html" %} {% load crispy_forms_tags %} 
+{% load static %} 
+{% block content %} 
     
     <main class="main" id="main">
       {% comment %} <h2 class="mt-3 text-center">Edit Sitter Details Here</h2> {% endcomment %}
-      {% crispy form %}
+      {% comment %} {% crispy form %} {% endcomment %}
       <div class="container">
-        {% if sitter %}
+        {% if baby %}
         <form
           action=""
           method="POST"
-          class="bg-danger p-3 mt-5 rounded-30 shadow-lg form"
+          class="p-3 mt-5 rounded-30 shadow-lg form"
         >
-          {% csrf_token %} {{ baby|crispy }}
+          {% csrf_token %} 
+          {{ baby|crispy }}
+          <button
+        class="btn"
+        type="submit"
+        style="
+          background: #1e7875;
+          color: white;
+          width: 80%;
+          display: grid;
+          margin: auto;
+        "
+      >
+        Update
+      </button>
         </form>
         {% endif %}
       </div>

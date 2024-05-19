@@ -28,10 +28,10 @@ def index(request):
     all_onduty = Sitter_on_duty.objects.count()
     item_sell = ItemSelling.objects.aggregate(total=Sum('amount_paid'))
     baby_payments = BabyPayment.objects.aggregate(total=Sum('amount_paid'))
-    total_payments = item_sell['total'] + baby_payments['total']
+    # total_payments = item_sell['total'] + baby_payments['total']
 
     context = {
-        'total_payments': total_payments,
+        # 'total_payments': total_payments,
         'today_babys': today_babys,
         'today_sitters': today_sitters,
         'count_sitters': count_sitters,
@@ -120,13 +120,22 @@ def babys(request):
     return render(request, 'dayStarApp/babies.html', {'all_babys': all_babys, 'babysearch': babysearch})
 
 @login_required
-def edit_babydetails(request, id):
-    baby = get_object_or_404(Baby, id=id)
+def viewBaby(request, baby_id): # sttier viewing page
+    all_baby = Baby.objects.get(id=baby_id)
+    context = {
+       'all_baby': all_baby
+    }
+    template = loader.get_template('dayStarApp/view_baby.html')
+    return HttpResponse(template.render(context))
+
+@login_required
+def edit_babydetails(request, baby_id):
+    baby = get_object_or_404(Baby, id=baby_id)
     if request.method == 'POST':
         baby = Baby_regForm(request.POST, instance=baby)
         if baby.is_valid():
             baby.save()
-            return redirect('babies')  # Redirect to a success page
+            return redirect('babys')  # Redirect to a babies page
     else:
         baby = Baby_regForm(instance=baby)
     return render(request, 'dayStarApp/edit_baby.html', {'baby': baby})
@@ -169,9 +178,6 @@ def selling(request, pk):
             sell_quantity = int(request.POST['quantity'])
             sell.quantity -= sell_quantity
             sell.save()
-            # print(sell.doll_name) 
-            # print(request.POST['quantity'])
-            # print(sell.quantity)
             return redirect('sale')
     return render(request, 'dayStarApp/selling.html', {'form': form})
 

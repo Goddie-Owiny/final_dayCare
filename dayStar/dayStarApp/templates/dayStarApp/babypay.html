@@ -6,7 +6,7 @@
   <div class="container">
   
     <!--  table -->
-    <a href="{% url 'babyadd' %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Add Payment</a>
+    <a href="{% url 'babyadd' %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Make Payment</a>
      <div class="col-lg-12 col-md-12 sitter-table mt-3 p-2">
       <table class="table table-bordered table-stripped mt-3">
         <caption class="caption-top text-center" style="color: #a74527;"><h4>Baby Payments
@@ -37,7 +37,7 @@
               <td>{{ baby.duration_of_pay }}</td>
               <td>UGX {{ baby.amount_paid }}</td>
               <td>UGX {{ baby.change }}</td>
-              <td><a href="{% url 'babyedit' id=baby.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Edit</a>
+              <td><a href="{% url 'edit_baby' id=baby.id %}" class="btn btn-sm m-1 text-white" style="background-color: #1e7875; border: none;">Edit</a>
                 
             </tr>
           {% endfor %}

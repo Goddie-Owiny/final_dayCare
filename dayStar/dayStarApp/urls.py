@@ -29,10 +29,11 @@ urlpatterns = [
     # baby urls
     path('babyreg/', views.babyReg, name='babyreg'),
     path('babies/', views.babys, name='babys'),
-    path('edit/<int:baby_id>/', views.edit_babydetails, name='edit_baby'),
+    path('viewBaby/<int:baby_id>/', views.viewBaby, name='viewBaby'),
+    path('editdetails/<int:baby_id>/', views.edit_babydetails, name='edit_babydetails'),
     path('delete/<int:id>/', views.deleteBaby, name="delete"),
     path('babypay/', views.babyPay, name='babypay'),
-    path('babyedit/<int:id>/', views.babyedit, name= 'babyedit'),
+    path('editbabies/<int:id>/', views.babyedit, name='edit_baby'),
     path('babyadd/', views.babyadd, name='babyadd'),
 
   

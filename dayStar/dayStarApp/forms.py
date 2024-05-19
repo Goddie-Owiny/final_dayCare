@@ -6,7 +6,6 @@ from django import forms
 class Sitter_regForm(ModelForm):
     class Meta:
         model = Sitter
-        fields = ['gender']
         fields = '__all__'
 
 
@@ -15,9 +14,14 @@ class Baby_regForm(ModelForm):
     class Meta:
         model = Baby
         fields = '__all__'
+        widgets = {
+            'time_out': forms.TimeInput(attrs={'type': 'time'}),
+            'status': forms.CheckboxInput(),
+        }
 
 
-class Item_sellForm(ModelForm):   # item sellling form
+
+class Item_sellForm(forms.ModelForm):   # item sellling form
     class Meta:
         model = ItemSelling
         fields = ['baby', 'quantity', 'amount_paid']

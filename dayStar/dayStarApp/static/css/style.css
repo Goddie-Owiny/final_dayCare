@@ -587,7 +587,6 @@ th .btn-secondary:focus {
 /* Search styles */
 .search-form {
   display: flex;
-  background-color: red;
   gap: 10px; /* Adjust the gap between fields */
 }
 .search-form input[type="text"] {

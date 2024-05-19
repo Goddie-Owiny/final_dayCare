@@ -17,7 +17,17 @@ class Sitter(models.Model):
     regex=NIN_regex,
     message='Enter a valid Ugandan NIN'
 )
-    name = models.CharField(max_length=100, null=True, blank=False)
+    
+    #name validator
+
+    name_regex = r'^(?=.{1,100}$)[A-Za-z]+(?:[\'\s-][A-Za-z]+)* [A-Za-z]+(?:[\'\s-][A-Za-z]+)*$'
+    name_validator = RegexValidator(
+    regex=name_regex,
+    message='Enter both names with no special characters'
+)
+    
+                   
+    name = models.CharField(max_length=100, null=True, blank=False, validators=[name_validator] )
     gender = models.CharField(max_length=100)
     location = models.CharField(max_length=100, default="Kabalagala")
     contact = models.CharField(max_length=13, validators=[MinLengthValidator(10), contact_validator])
@@ -75,7 +85,7 @@ class Baby(models.Model):
     time_out = models.TimeField(null=True, blank=True)
     brought_by = models.CharField(max_length=100)
     status = models.BooleanField(null=True, blank=True,  default=False)
-    assigned_to = models.ForeignKey(Sitter_on_duty, on_delete=models.CASCADE, null=True, blank=True)
+    assigned_To = models.ForeignKey(Sitter_on_duty, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -85,8 +95,8 @@ class BabyPayment(models.Model):
     baby = models.ForeignKey(Baby, on_delete=models.CASCADE, null=True, blank=True)
     period_of_stay = models.ForeignKey(Period, on_delete=models.CASCADE, null=True, blank=True)
     date_of_payment = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    amount = models.IntegerField(default=0, choices=[(10000, '10000'), (15000, '15000'), (300000, '300000'), (450000, '450000')], null= True, blank=True)
     duration_of_pay = models.CharField(max_length=100, choices=[("Half day", "Half day"), ("Full Day", "Full Day"), ("Monthly Full Day", "Monthly Full Day"),("Monthly Half Day", "Monthly Half Day")])
+    total_Fee = models.IntegerField(default=0, choices=[(10000, '10000'), (15000, '15000'), (300000, '300000'), (450000, '450000')], null= True, blank=True)
     amount_paid = models.PositiveIntegerField(default=0, validators=([MinValueValidator(1000)])) 
     
     
@@ -94,16 +104,16 @@ class BabyPayment(models.Model):
         return f"{self.baby} {self.period_of_stay}"
     
     def change(self):
-        recieved = self.amount_paid - self.amount 
+        recieved = self.amount_paid - self.total_Fee 
         return int(recieved)
 
 class SitterPayment(models.Model):
     sitter = models.ForeignKey(Sitter_on_duty, on_delete=models.CASCADE, null=True, blank=True)
     num_of_baby = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(6)])
-    amount_paid = models.PositiveIntegerField(default=3000)
+    amount_per_baby = models.PositiveIntegerField(default=3000)
 
     def sitterpay(self):
-        total_pay = self.num_of_baby * self.amount_paid
+        total_pay = self.num_of_baby * self.amount_per_baby 
         return int(total_pay)
 
 class AddItem(models.Model):
@@ -144,6 +154,7 @@ class Stock(models.Model):
 class Issue_Stock(models.Model):
     stock_name = models.ForeignKey(Stock, on_delete=models.CASCADE, null=True, blank=False)
     quantity = models.PositiveIntegerField(default=1, null=True, blank=False)
+    #issued_To = models.CharField(max_length=100, null=True, blank=False)
     date_of_issue = models.DateTimeField(null=True, blank=False)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
