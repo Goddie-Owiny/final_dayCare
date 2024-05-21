@@ -28,10 +28,10 @@ def index(request):
     all_onduty = Sitter_on_duty.objects.count()
     item_sell = ItemSelling.objects.aggregate(total=Sum('amount_paid'))
     baby_payments = BabyPayment.objects.aggregate(total=Sum('amount_paid'))
-    # total_payments = item_sell['total'] + baby_payments['total']
+    total_payments = item_sell['total'] + baby_payments['total']
 
     context = {
-        # 'total_payments': total_payments,
+        'total_payments': total_payments,
         'today_babys': today_babys,
         'today_sitters': today_sitters,
         'count_sitters': count_sitters,
@@ -96,20 +96,21 @@ def edit_sitterdetails(request, id):
 # Baby views
 @login_required
 def babyReg(request):
+    message_success = ""
+    message_fail = ""
     addBabyForm = Baby_regForm(request.POST)  
-    message = None
     if request.method == 'POST':
         if addBabyForm.is_valid():
             newBaby = addBabyForm.save(commit=False) 
             newBaby.save()
-            message = "Baby Added Successfully!"
+            message_success = "Baby Added Successfully!"
             return redirect('babys')
         else:
-            message = "Baby Registration Failed"
+            message_fail = "Baby Registration Failed"
     else:
         addBabyForm = Baby_regForm()  
 
-    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm, 'message': message})
+    return render(request, 'dayStarApp/baby_reg.html', {'addBabyForm': addBabyForm, 'message_success': message_success, 'message_fail': message_fail})
 
 
 @login_required
@@ -173,7 +174,7 @@ def selling(request, pk):
         if form.is_valid():
             newItem = form.save(commit=False)
             newItem.doll_name = sell
-            newItem.amount_paid = sell.price
+            # newItem.amount_paid = sell.price
             newItem.save()
             sell_quantity = int(request.POST['quantity'])
             sell.quantity -= sell_quantity

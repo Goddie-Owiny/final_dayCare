@@ -3,7 +3,6 @@
 {% block content %}
 
 
-<div class="container">
     <main class="main" id="main">
         <div class="container">
             <a href="/sitter-reg/"><button class="btn btn-outline-info btn-lg"><span><i class="bi bi-plus"></i></span>Add Sitter <span></span></button></a>
@@ -15,7 +14,7 @@
               <caption class="caption-top text-center"><h4>Available Baby Sitters</h4></caption>
               <thead>
                 <tr>
-                  <th>
+                  <th scope="col" style="width: 150px;">
                     <b>N</b>ames
                   </th>
                   <th>Date of Registration</th>
@@ -24,17 +23,6 @@
                   <th data-type="tel">Contact</th>
                   <th>Education Level</th>
                   <th>More</th>
-                  {% comment %} <th>
-                    <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span><i class="bi bi-three-dots"></i></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/sitter/"><span><i class="bi bi-person-plus"></i></span>Add Sitter</a></li>
-                      <li><a class="dropdown-item" href="#"><span><i class="bi bi-info"></i></span>View Details</a></li>
-                      <li><a class="dropdown-item" href="#"><span><i class="bi bi-sliders"></i></span>Others</a></li>
-                    </ul>
-                  </div></th> {% endcomment %}
                 </tr>
               </thead>
               <tbody>
@@ -50,10 +38,6 @@
                       <td>
                         <a href="/details/{{ each.id }}" class="text-blue-500"> Details </a>
                       </td>
-                      {% comment %} <td>
-                        <a href="/editsitters/{{ each.id }}" class="text-blue-500 text-center"> Edit </a>
-                      </td> {% endcomment %}
-                      {% comment %} <td><span><i class="bi bi-eye-slash"></i></span></td>  {% endcomment %}
                   </tr>
                 
                 {% endfor %}
@@ -63,6 +47,6 @@
         </main>
       
     </main>
-</div>
+
 
 {% endblock %}

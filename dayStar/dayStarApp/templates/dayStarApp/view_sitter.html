@@ -2,13 +2,13 @@
 
 <main class="main" id="main">
   <div class="container" id="sitter-details">
-    <h1 class="text-center" style="color: #1e7875; font-weight=bolder;" id="detail">{{ all_sitter.name }}'s Details</h1>
+    <h3 class="text-center" style="color: #1e7875; font-weight=bolder;" id="detail">{{ all_sitter.name }}'s Details</h3>
     <div class="flex gap-2 p-4">
       <div class="row">
         <div class="col-md-12">
           <h5 class="p-1">Name:<span class="p-2" style="color: #a74527">{{ all_sitter.name }}</span></h5>
+          <h5 class="p-1">Date Of Birth:<span class="p-2" style="color: #a74527">{{ all_sitter.date_of_birth }}</span></h5>
           <h5 class="p-1">Sitter Number:<span class="p-2" style="color: #a74527">{{ all_sitter.sitter_number }}</span></h5>
-          <h5 class="p-1">Age:<span class="p-2" style="color: #a74527">{{ all_sitter.age }}</span></h5>
           <h5 class="p-1">Gender:<span class="p-2" style="color: #a74527">{{ all_sitter.gender }}</span></h5>
           <h5 class="p-1">Education Level:<span class="p-2" style="color: #a74527">{{ all_sitter.education_Level }}</span></h5>
           <h5 class="p-1">Phone:<span class="p-2" style="color: #a74527">{{ all_sitter.contact }}</span></h5></h5>
@@ -28,12 +28,13 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-center" id="staticBackdropLabel" style="color: #1e7875;">Confirm Deletion</h5>
+              <h5 class="modal-title text-center" id="staticBackdropLabel" style="color: #1e7875; margin-left: 2rem;">Confirm Deletion</h5>
               <span class="bi bi-exclamation-octagon-fill mr-5 float-right" style="color: #a74527; margin-left: 1rem; font-size: 1em;"></span>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <h5 class= "text-center">Are you sure you want to delete the sitter <br> <strong>{{ all_sitter.name }}</strong>?</h5>
+              <p class="text-center" style="color: #a74527;">Remember This action can not be undone....!!</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn text-light" data-bs-dismiss="modal" style="background-color: #1e7875; border: none;">Close</button>

@@ -5,13 +5,18 @@
 <main class="main" id="main">
   <div class="container">
     <form
-      action=""
-      method="POST"
-      novalidate="false"
-      class="bg-light p-3 mt-3 rounded-30 shadow-lg form"
-      id="form"
+    action=""
+    method="POST"
+    novalidate="false"
+    class="bg-light p-3 mt-3 rounded-30 shadow-lg form"
+    id="form"
     >
-      <h2 class="mt-5 text-center">Register Baby</h2>
+    <h2 class="mt-5 text-center">Register Baby</h2>
+    {% if message %}
+      <div class="alert alert-{{ message_sucess }}" role="alert">
+        {{ message }}
+      </div>
+    {% endif %}
       <br/>
       {% csrf_token %} 
       {{ addBabyForm|crispy }}

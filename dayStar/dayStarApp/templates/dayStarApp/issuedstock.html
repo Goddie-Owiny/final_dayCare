@@ -14,8 +14,9 @@
           <tr>
             <th scope="col">Stock Name</th>
             <th scope="col">Quantity Issued</th>
+            <th scope="col">Issued To</th>
             <th scope="col">Date of Issuing</th>
-            {% comment %} <td>Action</td> {% endcomment %}
+            
           </tr>
         </thead>
         <tbody>
@@ -23,14 +24,9 @@
             <tr>
               <td>{{ issued.stock_name }}</td>
               <td>{{ issued.quantity}}</td>
+              <td>{{ issued.issued_To }}</td>
               <td>{{ issued.date_of_issue }}</td>
-              {% comment %} <td>
-                <a href="{% url 'issuestock' pk=issued.id %}">Issue</a>
-                <a href="{% url 'addstock' pk=issued.id %}">Add</a>
-                
-              </td> {% endcomment %}
-              
-              
+      
             </tr>
           {% endfor %}
         </tbody>

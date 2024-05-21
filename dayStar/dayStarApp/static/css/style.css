@@ -50,7 +50,7 @@
   color: #1e7875;
 }
 
-#centered-text h6 {
+#centered-text h4 {
   text-align: center;
   color: #a74527;
   font-family: "mali";
@@ -599,4 +599,15 @@ th .btn-secondary:focus {
 
 .form .asteriskField, .addform .asteriskField{
   color: red;
+}
+
+#admin-login .asteriskField{
+  color: red;
+}
+
+.search-form #id_name{
+  border: 1px solid #1e7875;
+  border-radius: 5px;
+  padding: 5px;
+  width: 500px;
 }
