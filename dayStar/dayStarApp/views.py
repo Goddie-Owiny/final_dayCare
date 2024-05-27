@@ -390,17 +390,11 @@ def issuedstock(request):
 
 # authetications
 @login_required
+@login_required
 def deleteSitter(request, id):
-    sitter = Sitter.objects.get(id=id)
-    if request.method == 'POST':
-        # If the confirmation form is submitted
-        if 'confirm_delete' in request.POST:
-            # Delete the sitter
-            sitter.delete()
-            return redirect('sitters')
-        elif 'cancel_delete' in request.POST:
-            return redirect('sitters')
-    return render(request, 'dayStarApp/sitters.html', {'sitter': sitter})
+    Sitter.objects.filter(id=id).delete()
+    return redirect('/sitters')
+
 
 @login_required
 def logout_view(request):
